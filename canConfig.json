@@ -1,0 +1,9 @@
+{
+  "receiverDeviceName": "/dev/pcanpcifd0",
+  "transmitterDeviceName": "/dev/pcanpcifd1",
+  "initialConfiguration": {
+    "clockHz": 0,
+    "nominalBitrate": 500000,
+    "dataBitrate": 2000000
+  }
+}

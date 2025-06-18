@@ -1,0 +1,1 @@
+cmd_/home/trick/CAN/peak-linux-driver-8.20.0/driver/pcan.o := ld -m elf_x86_64 -z noexecstack   -r -o /home/trick/CAN/peak-linux-driver-8.20.0/driver/pcan.o @/home/trick/CAN/peak-linux-driver-8.20.0/driver/pcan.mod 

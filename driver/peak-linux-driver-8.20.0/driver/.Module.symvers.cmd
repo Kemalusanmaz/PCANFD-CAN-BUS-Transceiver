@@ -1,0 +1,1 @@
+cmd_/home/trick/CAN/peak-linux-driver-8.20.0/driver/Module.symvers := sed 's/ko$$/o/' /home/trick/CAN/peak-linux-driver-8.20.0/driver/modules.order | scripts/mod/modpost -m -a  -o /home/trick/CAN/peak-linux-driver-8.20.0/driver/Module.symvers -e -i Module.symvers   -T -

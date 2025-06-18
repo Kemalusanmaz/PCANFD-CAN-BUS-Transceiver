@@ -1,0 +1,1 @@
+cmd_/home/trick/CAN/peak-linux-driver-8.20.0/driver/modules.order := {   echo /home/trick/CAN/peak-linux-driver-8.20.0/driver/pcan.ko; :; } | awk '!x[$$0]++' - > /home/trick/CAN/peak-linux-driver-8.20.0/driver/modules.order

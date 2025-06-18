@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o CMakeFiles/CanAppReceiver.dir/src/main.cpp.o -o CanAppReceiver   -L/home/trick/kemal/CANFDProject/receiver/driver/lib  -Wl,-rpath,/home/trick/kemal/CANFDProject/receiver/driver/lib -lpcanfd 
