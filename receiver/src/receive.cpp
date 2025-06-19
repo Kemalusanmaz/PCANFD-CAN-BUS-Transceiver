@@ -138,3 +138,65 @@ void CANReceive::receiveMessage() {
     std::cout << std::endl;
   }
 }
+
+void CANReceive::receiveMessageList() {
+  const int max_msgs = 5;
+
+  // reserved for received messages. 
+  struct pcanfd_msg msgs[max_msgs];
+
+  // Read messages
+  int received = pcanfd_recv_msgs_list(m_fd, max_msgs, msgs);
+
+  if (received < 0) {
+    std::cerr << "Message can not received, Error Code:: " << received << "\n";
+  }
+
+  // process received messages.
+  for (int i = 0; i < received; ++i) {
+    processMsg(&msgs[i]);
+  }
+}
+
+void CANReceive::receiveMessages() {
+  // reserved for received messages
+  struct pcanfd_msgs *pml = (struct pcanfd_msgs *)malloc(
+      sizeof(*pml) + 5 * sizeof(struct pcanfd_msg));
+  if (!pml) {
+    std::cerr << "Buffer can not arranged\n";
+  }
+
+  pml->count = 5;
+
+  // Read messages
+  int err = pcanfd_recv_msgs(m_fd, pml);
+  if (err) {
+    std::cerr << "Message can not received, Error Code: " << err << "\n";
+    free(pml);
+  }
+
+   // process received messages.
+  for (int i = 0; i < static_cast<int>(pml->count); ++i) {
+    processMsg(&(pml->list[i]));
+  }
+
+  free(pml);
+}
+
+int CANReceive::processMsg(struct pcanfd_msg *pm) {
+  switch (pm->type) {
+  case PCANFD_TYPE_CAN20_MSG:
+    std::cout << "CAN 2.0 message is received\n";
+    return 0;
+  case PCANFD_TYPE_CANFD_MSG:
+    std::cout << "CAN FD message is received\n";
+    return 0;
+  case PCANFD_TYPE_STATUS:
+    std::cout << "Status message is received\n";
+    return 0;
+  case PCANFD_TYPE_ERROR_MSG:
+    std::cout << "Error message is received\n";
+    return 0;
+  }
+  return -EINVAL;
+}

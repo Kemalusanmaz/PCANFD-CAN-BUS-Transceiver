@@ -35,7 +35,13 @@ public:
    */
   void receiveMessage();
 
+  void receiveMessages();
+
+  void receiveMessageList();
+
+
 private:
+  int processMsg(struct pcanfd_msg *pm);
   int m_fd; // File descriptor for the CAN device.
   struct pcanfd_msg_filter msgFilter {}; // Structure for a single CAN message filter.
   struct pcanfd_msg_filter filters[2]; // Array of message filters.
