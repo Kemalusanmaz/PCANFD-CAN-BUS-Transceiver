@@ -9,6 +9,12 @@ int main() {
   CANConfiguraton conf;
   // Initialize CAN configuration with receiver device name from JSON
   conf.initialize(conf.getJsonData()["receiverDeviceName"]);
+  conf.isCanFdCapable();
+  conf.getSerialNumber();
+  conf.getHCDeviceNumber();
+  conf.getFirmwareVersionFromDriver();
+  conf.getAdapterName();
+  conf.getPartNumber();
   CANReceive receive(conf.getFd());
   // Remove all existing message filters before starting
   receive.deleteAllFilters();

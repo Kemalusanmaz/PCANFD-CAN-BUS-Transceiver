@@ -7,6 +7,12 @@ int main() {
   CANConfiguraton conf;
   // Initialize CAN configuration with transmitter device name from JSON config
   conf.initialize(conf.getJsonData()["transmitterDeviceName"]);
+  conf.isCanFdCapable();
+  conf.getSerialNumber();
+  conf.getHCDeviceNumber();
+  conf.getFirmwareVersionFromDriver();
+  conf.getAdapterName();
+  conf.getPartNumber();
   CANTransmit transmit(conf.getFd());
   int sendMsgOption;
   int confOption;
@@ -191,7 +197,7 @@ int main() {
       conf.getBitTimingRanges();
       conf.getChannelFeatures();
       conf.getDeviceId();
-      conf.getAcceptFilter();
+      conf.getAcceptanceFilter();
       conf.getFrameDelayTime();
       conf.getTimeStampMode();
       conf.getDriverVersion();

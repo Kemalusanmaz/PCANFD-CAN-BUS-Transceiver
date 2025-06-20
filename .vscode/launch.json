@@ -23,9 +23,9 @@
             "name": "CAN Transmitter Debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/transmit/build/CanAppTransmitter",
+            "program": "${workspaceFolder}/transmitter/build/CanAppTransmitter",
             "args": [],
-            "cwd": "${workspaceFolder}/transmit/build/",
+            "cwd": "${workspaceFolder}/transmitter/build/",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",

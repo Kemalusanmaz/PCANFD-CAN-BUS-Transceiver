@@ -35,6 +35,22 @@ void CANConfiguraton::checkError(int ret, const char *msg) {
   }
 }
 
+// opening a PCAN device with various initialization options
+void CANConfiguraton::canOpen(std::string deviceStr, uint32_t nominalBitrate,
+                              uint32_t dataBitrate, uint32_t clockHz) {
+  uint32_t flags = OFD_BITRATE | OFD_DBITRATE | OFD_CLOCKHZ | OFD_NONBLOCKING |
+                   PCANFD_INIT_FD;
+  const char *device = deviceStr.c_str();
+  // Open and initialize the device with the above configuration
+  int fd = pcanfd_open(device, flags,
+                       nominalBitrate, // 3rd argument: nominal bitrate
+                       dataBitrate,    // 4th argument: data bitrate
+                       clockHz         // 5th argument: clock frequency (Hz)
+  );
+  checkError(fd, "Failed to open and initialize PCAN device");
+  std::cout << "PCAN device successfully opened and initialized." << std::endl;
+}
+
 // Opens the CAN device file with read/write access
 void CANConfiguraton::initialize(std::string deviceStr) {
   const char *device = deviceStr.c_str();
@@ -286,7 +302,7 @@ void CANConfiguraton::getDeviceId() {
   std::cout << "Delay Time between frames (μs): " << deviceId << std::endl;
 }
 
-void CANConfiguraton::getAcceptFilter() {
+void CANConfiguraton::getAcceptanceFilter() {
   // Read Accept filter (11-bit)
   uint64_t accFilter = 0;
   int ret = pcanfd_get_option(fd, PCANFD_OPT_ACC_FILTER_11B, &accFilter,
@@ -567,4 +583,72 @@ void CANConfiguraton::setBRSIgnore(std::string enable) {
     flagValue = "Enable";
   }
   std::cout << "BRS Ignore set to: " << index << std::endl;
+}
+
+void CANConfiguraton::isCanFdCapable() {
+  int result = pcanfd_is_canfd_capable(fd);
+  if (result == 0) {
+    std::cout << "Device does NOT support CAN-FD." << std::endl;
+  } else {
+    std::cout << "Device supports CAN-FD." << std::endl;
+  }
+}
+// Get serial number from the device
+void CANConfiguraton::getSerialNumber() {
+  memset(&param, 0, sizeof(param));
+  param.nSubFunction = SF_GET_SERIALNUMBER;
+
+  int ret = pcan_set_extra_params(fd, &param);
+  checkError(ret, "Failed to get serial number");
+  std::cout << "Serial Number: " << param.func.dwSerialNumber << std::endl;
+}
+// Get user-defined hardware device number
+void CANConfiguraton::getHCDeviceNumber() {
+  memset(&param, 0, sizeof(param));
+  param.nSubFunction = SF_GET_HCDEVICENO;
+
+  int ret = pcan_set_extra_params(fd, &param);
+  checkError(ret, "Failed to get hardware device number");
+  std::cout << "Hardware Device Number: "
+            << static_cast<int>(param.func.ucHCDeviceNo) << std::endl;
+}
+// Set user-defined hardware device number
+void CANConfiguraton::setHCDeviceNumber(uint8_t devNo) {
+  memset(&param, 0, sizeof(param));
+  param.nSubFunction = SF_SET_HCDEVICENO;
+  param.func.ucHCDeviceNo = devNo;
+
+  int ret = pcan_set_extra_params(fd, &param);
+  checkError(ret, "Failed to set hardware device number");
+  std::cout << "Hardware Device Number set to: " << static_cast<int>(devNo)
+            << std::endl;
+}
+// Get firmware version of the device
+void CANConfiguraton::getFirmwareVersionFromDriver() {
+  memset(&param, 0, sizeof(param));
+  param.nSubFunction = SF_GET_FWVERSION;
+
+  int ret = pcan_set_extra_params(fd, &param);
+  checkError(ret, "Failed to get firmware version");
+  std::cout << "Firmware Version: " << param.func.dwSerialNumber << std::endl;
+}
+// Get adapter name of the device
+void CANConfiguraton::getAdapterName() {
+  memset(&param, 0, sizeof(param));
+  param.nSubFunction = SF_GET_ADAPTERNAME;
+
+  int ret = pcan_set_extra_params(fd, &param);
+  checkError(ret, "Failed to get adapter name");
+  std::cout << "Adapter Name: "
+            << reinterpret_cast<char *>(param.func.ucDevData) << std::endl;
+}
+// Get part number of the device
+void CANConfiguraton::getPartNumber() {
+  memset(&param, 0, sizeof(param));
+  param.nSubFunction = SF_GET_PARTNUM;
+
+  int ret = pcan_set_extra_params(fd, &param);
+  checkError(ret, "Failed to get part number");
+  std::cout << "Part Number: " << reinterpret_cast<char *>(param.func.ucDevData)
+            << std::endl;
 }
