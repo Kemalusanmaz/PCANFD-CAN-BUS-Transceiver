@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp" "CMakeFiles/CanAppTransmitter.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o" "gcc" "CMakeFiles/CanAppTransmitter.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o.d"
-  "/home/trick/kemal/CANFDProject/transmitter/src/main.cpp" "CMakeFiles/CanAppTransmitter.dir/src/main.cpp.o" "gcc" "CMakeFiles/CanAppTransmitter.dir/src/main.cpp.o.d"
-  "/home/trick/kemal/CANFDProject/transmitter/src/transmit.cpp" "CMakeFiles/CanAppTransmitter.dir/src/transmit.cpp.o" "gcc" "CMakeFiles/CanAppTransmitter.dir/src/transmit.cpp.o.d"
+  "/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp" "CMakeFiles/CanAppTransmitter.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o" "gcc" "CMakeFiles/CanAppTransmitter.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o.d"
+  "/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/src/main.cpp" "CMakeFiles/CanAppTransmitter.dir/src/main.cpp.o" "gcc" "CMakeFiles/CanAppTransmitter.dir/src/main.cpp.o.d"
+  "/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/src/transmit.cpp" "CMakeFiles/CanAppTransmitter.dir/src/transmit.cpp.o" "gcc" "CMakeFiles/CanAppTransmitter.dir/src/transmit.cpp.o.d"
   )
 
 # Targets to which this target links.

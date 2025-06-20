@@ -7,7 +7,8 @@
 
 /**
  * @class CANConfiguraton
- * @brief Handles initialization, configuration, and termination of a PCAN FD CAN device.
+ * @brief Handles initialization, configuration, and termination of a PCAN FD
+ * CAN device.
  */
 class CANConfiguraton {
 public:
@@ -24,7 +25,8 @@ public:
    * @param nominalBitrate Optional nominal bitrate (bit/s).
    * @param dataBitrate Optional data bitrate for CAN FD (bit/s).
    */
-  void setCanConfig(int flag, int clockHz=0, int nominalBitrate=0, int dataBitrate=0);
+  void setCanConfig(int flag, int clockHz = 0, int nominalBitrate = 0,
+                    int dataBitrate = 0);
   /**
    * @brief Gets and prints the current CAN configuration.
    */
@@ -48,15 +50,64 @@ public:
    */
   nlohmann::json getJsonData() const { return jsonData; }
 
+  void getCanClocks();
+
+  void getBitTimingRanges();
+
+  void getChannelFeatures();
+
+  void getDeviceId();
+
+  void getAcceptFilter();
+
+  void getFrameDelayTime();
+
+  void getTimeStampMode();
+
+  void getDriverVersion();
+
+  void getFirmwareVersion();
+
+  void getIoInfo();
+
+  void setDeviceId(uint32_t deviceId);
+
+  void setFlashLed(uint32_t durationMs);
+
+  void setAllowedMsgs(std::string flag);
+
+  void setAccFilter11B(uint32_t code, uint32_t mask);
+
+  void setAccFilter29B(uint32_t code, uint32_t mask);
+
+  void setIFrameDelay(uint32_t delayUs);
+
+  void setHwTimestampMode(std::string flag);
+
+  void setMassStorageMode(std::string flag);
+
+  void setDrvClockRef(uint32_t clkRef);
+
+  void setLinger(std::string lingerValue);
+
+  void setSelfAck(std::string enable);
+
+  void setBRSIgnore(std::string enable);
+
 private:
-  int fd{}; // File descriptor for the CAN device.
+  int fd{};                         // File descriptor for the CAN device.
   struct pcanfd_init initConfig {}; // PCAN FD initialization configuration.
-  struct pcanfd_state canState {}; // CAN controller state structure.
-  nlohmann::json jsonData; // Parsed JSON configuration data.
+  struct pcanfd_state canState {};  // CAN controller state structure.
+  nlohmann::json jsonData;          // Parsed JSON configuration data.
   /**
    * @brief Parses the CAN configuration from a JSON file or source.
    */
   void jsonParser();
+  struct pcanfd_available_clocks *pac;
+  struct pcanfd_bittiming_ranges *pbr;
+  void checkError(int ret, const char *msg);
+
+  void getIoInfoProcess(int name, std::string msg);
 };
 
 #endif // CONFIGURATION_HPP

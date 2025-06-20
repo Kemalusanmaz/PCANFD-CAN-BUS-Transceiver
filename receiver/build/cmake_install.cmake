@@ -1,4 +1,4 @@
-# Install script for directory: /home/trick/kemal/CANFDProject/receiver
+# Install script for directory: /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/trick/kemal/CANFDProject/receiver/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

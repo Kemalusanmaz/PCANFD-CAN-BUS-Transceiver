@@ -1,5 +1,6 @@
 #include "../include/configuration.hpp"
 #include "../../driver/peak-linux-driver-8.20.0/lib/libpcanfd.h" // PEAK-System FD API header
+#include <cstdint>
 #include <cstdlib>
 #include <cstring> // memset()
 #include <fcntl.h> // open()
@@ -8,6 +9,7 @@
 #include <malloc.h>
 #include <ostream>
 #include <pcanfd.h>
+#include <sstream>
 #include <stdio.h>
 #include <string>
 #include <sys/ioctl.h>
@@ -24,6 +26,13 @@ void CANConfiguraton::jsonParser() {
               << std::endl; // error if the file cannot be opened
   }
   jsonFile >> jsonData;
+}
+
+void CANConfiguraton::checkError(int ret, const char *msg) {
+  if (ret < 0) {
+    std::cerr << msg << " Error Code: " << strerror(-ret) << std::endl;
+    exit(EXIT_FAILURE);
+  }
 }
 
 // Opens the CAN device file with read/write access
@@ -190,3 +199,372 @@ void CANConfiguraton::getCanState() {
 
 // Close the CAN device file descriptor
 void CANConfiguraton::terminate() { close(fd); }
+
+void CANConfiguraton::getCanClocks() {
+  // Allocate enough space to store 6 clock values
+  const int max_clocks = 6;
+  pac = (struct pcanfd_available_clocks *)malloc(
+      sizeof(*pac) + max_clocks * sizeof(struct pcanfd_available_clock));
+  if (!pac) {
+    std::cerr << "Memory can not be arranged.\n";
+  }
+  pac->count = max_clocks;
+  int ret = pcanfd_get_available_clocks(fd, pac);
+  if (ret) {
+    std::cerr << "Clocks can not be acquired, Error Code: " << ret << "\n";
+    free(pac);
+  }
+
+  // Write clocks that are acquired.
+  for (int i = 0; i < static_cast<int>(pac->count); ++i) {
+    std::cout << "Clock #" << i << "/" << pac->count << ": "
+              << pac->list[i].clock_Hz << " Hz, "
+              << "Source Code: " << pac->list[i].clock_src << "\n";
+  }
+
+  free(pac);
+}
+
+void CANConfiguraton::getBitTimingRanges() {
+  // 2 zamanlama aralığı için yer ayır
+  const int range_count = 2;
+  pbr = (struct pcanfd_bittiming_ranges *)malloc(
+      sizeof(*pbr) + range_count * sizeof(struct pcanfd_bittiming_range));
+
+  if (!pbr) {
+    std::cerr << "Memory can not be arranged.\n";
+  }
+  pbr->count = range_count;
+
+  int ret = pcanfd_get_bittiming_ranges(fd, pbr);
+  if (ret) {
+    std::cerr << "Bit timing ranges can not be acquired, Error Code: " << ret
+              << "\n";
+    free(pbr);
+  }
+
+  for (unsigned int i = 0; i < pbr->count; ++i) {
+    const auto &bt = pbr->list[i];
+    std::cout << "Timing #" << i << ":\n";
+    std::cout << "  BRP: " << bt.brp_min << " - " << bt.brp_max
+              << " (Increment: " << bt.brp_inc << ")\n";
+    std::cout << "  TSEG1: " << bt.tseg1_min << " - " << bt.tseg1_max << "\n";
+    std::cout << "  TSEG2: " << bt.tseg2_min << " - " << bt.tseg2_max << "\n";
+    std::cout << "  SJW: " << bt.sjw_min << " - " << bt.sjw_max << "\n";
+  }
+
+  free(pbr);
+}
+
+void CANConfiguraton::getChannelFeatures() {
+  // Read Channel Features
+  uint32_t features = 0;
+  int ret = pcanfd_get_option(fd, PCANFD_OPT_CHANNEL_FEATURES, &features,
+                              sizeof(features));
+  checkError(ret, "PCANFD_OPT_CHANNEL_FEATURES can not read.");
+
+  std::cout << "Channel Features bitmask: 0x" << std::hex << features
+            << std::dec << std::endl;
+  if (features & PCANFD_FEATURE_FD)
+    std::cout << " - CAN FD is supported\n";
+  if (features & PCANFD_FEATURE_IFRAME_DELAYUS)
+    std::cout << " - Frame Delay is supported\n";
+  if (features & PCANFD_FEATURE_BUSLOAD)
+    std::cout << " - Busload Calculation is supported\n";
+  if (features & PCANFD_FEATURE_HWTIMESTAMP)
+    std::cout << " - Hardware Time Stamp is supported\n";
+  if (features & PCANFD_FEATURE_DEVICEID)
+    std::cout << " - Device ID support is available\n";
+}
+
+void CANConfiguraton::getDeviceId() {
+  // Read Device Id
+  uint32_t deviceId = 0;
+  int ret =
+      pcanfd_get_option(fd, PCANFD_OPT_DEVICE_ID, &deviceId, sizeof(deviceId));
+  checkError(ret, "PCANFD_OPT_DEVICE_ID can not read.");
+  std::cout << "Delay Time between frames (μs): " << deviceId << std::endl;
+}
+
+void CANConfiguraton::getAcceptFilter() {
+  // Read Accept filter (11-bit)
+  uint64_t accFilter = 0;
+  int ret = pcanfd_get_option(fd, PCANFD_OPT_ACC_FILTER_11B, &accFilter,
+                              sizeof(accFilter));
+  checkError(ret, "PCANFD_OPT_ACC_FILTER_11B can not read.");
+  uint32_t code = static_cast<uint32_t>(accFilter >> 32);
+  uint32_t mask = static_cast<uint32_t>(accFilter & 0xFFFFFFFF);
+  std::cout << "11-bit Accept Filter Code: 0x" << std::hex << code << std::dec
+            << std::endl;
+  std::cout << "11-bit Accept Filter Mask: 0x" << std::hex << mask << std::dec
+            << std::endl;
+}
+
+void CANConfiguraton::getFrameDelayTime() {
+  // Read Delay Time between each frame (microsecond)
+  uint32_t delayUs = 0;
+  int ret = pcanfd_get_option(fd, PCANFD_OPT_IFRAME_DELAYUS, &delayUs,
+                              sizeof(delayUs));
+  checkError(ret, "PCANFD_OPT_IFRAME_DELAYUS can not read.");
+  std::cout << "Delay Time between frames (μs): " << delayUs << std::endl;
+}
+
+void CANConfiguraton::getTimeStampMode() {
+  // Read Time Stamp Mode
+  uint32_t hwTimestampMode = 0;
+  int ret = pcanfd_get_option(fd, PCANFD_OPT_HWTIMESTAMP_MODE, &hwTimestampMode,
+                              sizeof(hwTimestampMode));
+  checkError(ret, "PCANFD_OPT_HWTIMESTAMP_MODE can not read.");
+  std::cout << "Time Stamp Mpde: ";
+  switch (hwTimestampMode) {
+  case PCANFD_OPT_HWTIMESTAMP_OFF:
+    std::cout << "Based On Host Time (Hardware is off)\n";
+    break;
+  case PCANFD_OPT_HWTIMESTAMP_ON:
+    std::cout << "Host Time + Base Hardware Offset\n";
+    break;
+  case PCANFD_OPT_HWTIMESTAMP_COOKED:
+    std::cout << "Host Time + Fixed Hardware Offset\n";
+    break;
+  case PCANFD_OPT_HWTIMESTAMP_RAW:
+    std::cout << "Base Hardware Time Stamp\n";
+    break;
+  case PCANFD_OPT_HWTIMESTAMP_SOF_ON:
+    std::cout << "Base Time Stamp (Start of Frame)\n";
+    break;
+  case PCANFD_OPT_HWTIMESTAMP_SOF_COOKED:
+    std::cout << "Fixed Time Stamp (Start of Frame)\n";
+    break;
+  case PCANFD_OPT_HWTIMESTAMP_SOF_RAW:
+    std::cout << "Base Time Stamp (Start of Frame Raw)\n";
+    break;
+  default:
+    std::cout << "Unknown Mode\n";
+    break;
+  }
+}
+
+void CANConfiguraton::getDriverVersion() {
+  // Read Driver Version
+  uint32_t drvVersion = 0, fwVersion = 0;
+  int ret = pcanfd_get_option(fd, PCANFD_OPT_DRV_VERSION, &drvVersion,
+                              sizeof(drvVersion));
+  checkError(ret, "Driver Version can not read.");
+  std::cout << "Driver Version: " << ((drvVersion >> 24) & 0xFF) << "."
+            << ((drvVersion >> 16) & 0xFF) << "." << ((drvVersion >> 8) & 0xFF)
+            << std::endl;
+}
+
+void CANConfiguraton::getFirmwareVersion() {
+  // Read Fİrmware Version
+  uint32_t fwVersion = 0;
+  int ret = pcanfd_get_option(fd, PCANFD_OPT_FW_VERSION, &fwVersion,
+                              sizeof(fwVersion));
+  checkError(ret, "Firmware Version can not read.");
+  std::cout << "Firmware Version: " << ((fwVersion >> 24) & 0xFF) << "."
+            << ((fwVersion >> 16) & 0xFF) << "." << ((fwVersion >> 8) & 0xFF)
+            << std::endl;
+}
+
+void CANConfiguraton::getIoInfo() {
+  getIoInfoProcess(PCANFD_OPT_DRV_CLK_REF, "Clock Reference");
+  getIoInfoProcess(PCANFD_OPT_LINGER,
+                   "Maximum time (ms) the driver waits for frames to be "
+                   "written before shutting down the device");
+  getIoInfoProcess(
+      PCANFD_OPT_SELF_ACK,
+      "Does the controller send automatic ACKs to frames it wrote?");
+  getIoInfoProcess(
+      PCANFD_OPT_BRS_IGNORE,
+      "Does the controller ignore received frames with BRS flags?");
+}
+
+void CANConfiguraton::getIoInfoProcess(int name, std::string msg) {
+  uint32_t canIo = 0;
+  int ret = pcanfd_get_option(fd, name, &canIo, sizeof(canIo));
+  checkError(ret, "{name} can not be read");
+  std::cout << msg << ": " << canIo << std::endl;
+}
+
+// Assign a custom user-defined numeric ID to a CAN channel (if supported)
+void CANConfiguraton::setDeviceId(uint32_t deviceId) {
+  int ret =
+      pcanfd_set_option(fd, PCANFD_OPT_DEVICE_ID, &deviceId, sizeof(deviceId));
+  checkError(ret, "Failed to set device ID");
+  std::cout << "Device Id set to: " << deviceId << std::endl;
+}
+
+// Blink the CAN device LED for visual identification (value = duration in
+// milliseconds)
+void CANConfiguraton::setFlashLed(uint32_t durationMs) {
+  int ret = pcanfd_set_option(fd, PCANFD_OPT_FLASH_LED, &durationMs,
+                              sizeof(durationMs));
+  checkError(ret, "Failed to flash LED");
+  std::cout << "Flash LED set to: " << durationMs << "milliseconds"
+            << std::endl;
+}
+
+// Set allowed message types
+void CANConfiguraton::setAllowedMsgs(std::string flag) {
+  // PCANFD_ALLOWED_MSG_- CAN Standard CAN messages only
+  // PCANFD_ALLOWED_MSG_RTR - Include RTR (remote request)
+  // PCANFD_ALLOWED_MSG_EXT - Include Extended IDs
+  // PCANFD_ALLOWED_MSG_STATUS - Include Status messages
+  // PCANFD_ALLOWED_MSG_ERROR - Include Error messages
+
+  const uint32_t options[] = {PCANFD_ALLOWED_MSG_CAN, PCANFD_ALLOWED_MSG_RTR,
+                              PCANFD_ALLOWED_MSG_EXT, PCANFD_ALLOWED_MSG_STATUS,
+                              PCANFD_ALLOWED_MSG_ERROR};
+  uint32_t flags = 0;
+
+  std::stringstream ss(flag);
+  std::string token;
+  while (std::getline(ss, token, ',')) {
+    int index = std::stoi(token);
+    if (index >= 0 &&
+        index < static_cast<int>(sizeof(options) / sizeof(options[0]))) {
+      flags |= options[index];
+    } else {
+      std::cerr << "Invalid option index: " << index << std::endl;
+    }
+  }
+
+  int ret =
+      pcanfd_set_option(fd, PCANFD_OPT_ALLOWED_MSGS, &flags, sizeof(flags));
+  checkError(ret, "Failed to set allowed message types");
+  std::cout << "Allowed message types set (bitmask = 0x" << std::hex << flags
+            << ")" << std::endl;
+}
+
+//  Set acceptance code and mask for 11-bit standard CAN identifiers
+void CANConfiguraton::setAccFilter11B(uint32_t code, uint32_t mask) {
+  uint64_t filter = (static_cast<uint64_t>(code) << 32) | mask;
+  int ret =
+      pcanfd_set_option(fd, PCANFD_OPT_ACC_FILTER_11B, &filter, sizeof(filter));
+  checkError(ret, "Failed to set 11-bit acceptance filter");
+  std::cout << "Mass Storage Device mode set to: " << filter << std::endl;
+}
+
+// Set acceptance code and mask for 29-bit extended CAN identifiers
+void CANConfiguraton::setAccFilter29B(uint32_t code, uint32_t mask) {
+  uint64_t filter = (static_cast<uint64_t>(code) << 32) | mask;
+  int ret =
+      pcanfd_set_option(fd, PCANFD_OPT_ACC_FILTER_29B, &filter, sizeof(filter));
+  checkError(ret, "Failed to set 29-bit acceptance filter");
+}
+
+// Define the delay in microseconds between sent frames (if controller supports
+// it)
+void CANConfiguraton::setIFrameDelay(uint32_t delayUs) {
+  int ret = pcanfd_set_option(fd, PCANFD_OPT_IFRAME_DELAYUS, &delayUs,
+                              sizeof(delayUs));
+  checkError(ret, "Failed to set inter-frame delay");
+  std::cout << "IFrame Delay set to: " << delayUs << "microsecond" << std::endl;
+}
+
+//  Set timestamp mode
+void CANConfiguraton::setHwTimestampMode(std::string flag) {
+  // 0 = PCANFD_OPT_HWTIMESTAMP_OFF - Host time only
+  // 1 = PCANFD_OPT_HWTIMESTAMP_ON - Host time + raw HW offset
+  // 2 = PCANFD_OPT_HWTIMESTAMP_COOKED - Host time + cooked HW offset (drift
+  // correction)
+  // 3 = PCANFD_OPT_HWTIMESTAMP_RAW - Raw HW timestamp (not host related)
+  // 4 = PCANFD_OPT_HWTIMESTAMP_SOF_ON - SOF + raw HW offset
+  // 5 = PCANFD_OPT_HWTIMESTAMP_SOF_COOKED - SOF + cooked HW offset
+  // 6 = PCANFD_OPT_HWTIMESTAMP_SOF_RAW -  SOF + raw timestamp
+
+  const uint32_t modes[] = {
+      PCANFD_OPT_HWTIMESTAMP_OFF,    PCANFD_OPT_HWTIMESTAMP_ON,
+      PCANFD_OPT_HWTIMESTAMP_COOKED, PCANFD_OPT_HWTIMESTAMP_RAW,
+      PCANFD_OPT_HWTIMESTAMP_SOF_ON, PCANFD_OPT_HWTIMESTAMP_SOF_COOKED,
+      PCANFD_OPT_HWTIMESTAMP_SOF_RAW};
+
+  int index = std::stoi(flag);
+  if (index >= 0 &&
+      index < static_cast<int>(sizeof(modes) / sizeof(modes[0]))) {
+    uint32_t mode = modes[index];
+    int ret =
+        pcanfd_set_option(fd, PCANFD_OPT_HWTIMESTAMP_MODE, &mode, sizeof(mode));
+    checkError(ret, "Failed to set hardware timestamp mode");
+    std::cout << "Hardware timestamp mode set to index " << index << std::endl;
+  } else {
+    std::cerr << "Invalid timestamp mode index: " << index << std::endl;
+  }
+}
+
+// enabling and disabling mass storage device mode (if supported by the
+// hardware)
+void CANConfiguraton::setMassStorageMode(std::string flag) {
+  // 0 = Disable
+  // 1 = Enable
+  std::string flagValue;
+  int index = std::stoi(flag);
+  int ret = pcanfd_set_option(fd, PCANFD_OPT_MASS_STORAGE_MODE, &index,
+                              sizeof(index));
+  checkError(ret, "Failed to set Mass Storage Device mode");
+  if (flag == "0") {
+    flagValue = "Disable";
+  } else if (flag == "1") {
+    flagValue = "Enable";
+  }
+  std::cout << "Mass Storage Device mode set to: " << index << std::endl;
+}
+
+// Set the clock reference used by the driver (typically internal or external
+// clock source)
+void CANConfiguraton::setDrvClockRef(uint32_t clkRef) {
+  int ret =
+      pcanfd_set_option(fd, PCANFD_OPT_DRV_CLK_REF, &clkRef, sizeof(clkRef));
+  checkError(ret, "Failed to set driver clock reference");
+  std::cout << "Set clock reference to value: " << clkRef << std::endl;
+}
+
+// Set different linger modes controlling how long the driver waits before
+// closing
+void CANConfiguraton::setLinger(std::string lingerValue) {
+  const int modes[] = {PCANFD_OPT_LINGER_NOWAIT, PCANFD_OPT_LINGER_AUTO};
+
+  int index = std::stoi(lingerValue);
+  if (index >= 0 &&
+      index < static_cast<int>(sizeof(modes) / sizeof(modes[0]))) {
+    uint32_t mode = modes[index];
+    int ret =
+        pcanfd_set_option(fd, PCANFD_OPT_HWTIMESTAMP_MODE, &mode, sizeof(mode));
+
+    checkError(ret, "Failed to set linger option");
+    std::cout << "Set linger to value: " << mode << std::endl;
+  }
+}
+
+// Enable or disable whether the controller acknowledges its own messages on the
+// bus
+void CANConfiguraton::setSelfAck(std::string enable) {
+  // 0 = Disable
+  // 1 = Enable
+  std::string flagValue;
+  int index = std::stoi(enable);
+  int ret = pcanfd_set_option(fd, PCANFD_OPT_SELF_ACK, &index, sizeof(index));
+  checkError(ret, "Failed to toggle self ACK");
+  if (enable == "0") {
+    flagValue = "Disable";
+  } else if (enable == "1") {
+    flagValue = "Enable";
+  }
+  std::cout << "Self ACK set to: " << index << std::endl;
+}
+
+// Configure whether to ignore CAN FD frames with BRS (Bit Rate Switch) flag
+void CANConfiguraton::setBRSIgnore(std::string enable) {
+  // 0 = Disable
+  // 1 = Enable
+  std::string flagValue;
+  int index = std::stoi(enable);
+  int ret = pcanfd_set_option(fd, PCANFD_OPT_BRS_IGNORE, &index, sizeof(index));
+  checkError(ret, "Failed to toggle BRS ignore");
+  if (enable == "0") {
+    flagValue = "Disable";
+  } else if (enable == "1") {
+    flagValue = "Enable";
+  }
+  std::cout << "BRS Ignore set to: " << index << std::endl;
+}

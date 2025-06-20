@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/trick/kemal/CANFDProject/receiver
+CMAKE_SOURCE_DIR = /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/trick/kemal/CANFDProject/receiver/build
+CMAKE_BINARY_DIR = /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/CanAppReceiver.dir/depend.make
@@ -69,63 +69,63 @@ include CMakeFiles/CanAppReceiver.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/CanAppReceiver.dir/flags.make
 
-CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o: CMakeFiles/CanAppReceiver.dir/flags.make
-CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o: /home/trick/kemal/CANFDProject/configuration/src/configuration.cpp
-CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o: CMakeFiles/CanAppReceiver.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/trick/kemal/CANFDProject/receiver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o -MF CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o.d -o CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o -c /home/trick/kemal/CANFDProject/configuration/src/configuration.cpp
+CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o: CMakeFiles/CanAppReceiver.dir/flags.make
+CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o: /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp
+CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o: CMakeFiles/CanAppReceiver.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o -MF CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o.d -o CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o -c /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp
 
-CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/trick/kemal/CANFDProject/configuration/src/configuration.cpp > CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.i
+CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp > CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.i
 
-CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/trick/kemal/CANFDProject/configuration/src/configuration.cpp -o CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.s
+CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp -o CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.s
 
 CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o: CMakeFiles/CanAppReceiver.dir/flags.make
 CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o: ../src/receive.cpp
 CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o: CMakeFiles/CanAppReceiver.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/trick/kemal/CANFDProject/receiver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o -MF CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o.d -o CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o -c /home/trick/kemal/CANFDProject/receiver/src/receive.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o -MF CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o.d -o CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o -c /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/src/receive.cpp
 
 CMakeFiles/CanAppReceiver.dir/src/receive.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CanAppReceiver.dir/src/receive.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/trick/kemal/CANFDProject/receiver/src/receive.cpp > CMakeFiles/CanAppReceiver.dir/src/receive.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/src/receive.cpp > CMakeFiles/CanAppReceiver.dir/src/receive.cpp.i
 
 CMakeFiles/CanAppReceiver.dir/src/receive.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CanAppReceiver.dir/src/receive.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/trick/kemal/CANFDProject/receiver/src/receive.cpp -o CMakeFiles/CanAppReceiver.dir/src/receive.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/src/receive.cpp -o CMakeFiles/CanAppReceiver.dir/src/receive.cpp.s
 
 CMakeFiles/CanAppReceiver.dir/src/main.cpp.o: CMakeFiles/CanAppReceiver.dir/flags.make
 CMakeFiles/CanAppReceiver.dir/src/main.cpp.o: ../src/main.cpp
 CMakeFiles/CanAppReceiver.dir/src/main.cpp.o: CMakeFiles/CanAppReceiver.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/trick/kemal/CANFDProject/receiver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CanAppReceiver.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CanAppReceiver.dir/src/main.cpp.o -MF CMakeFiles/CanAppReceiver.dir/src/main.cpp.o.d -o CMakeFiles/CanAppReceiver.dir/src/main.cpp.o -c /home/trick/kemal/CANFDProject/receiver/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CanAppReceiver.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/CanAppReceiver.dir/src/main.cpp.o -MF CMakeFiles/CanAppReceiver.dir/src/main.cpp.o.d -o CMakeFiles/CanAppReceiver.dir/src/main.cpp.o -c /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/src/main.cpp
 
 CMakeFiles/CanAppReceiver.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CanAppReceiver.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/trick/kemal/CANFDProject/receiver/src/main.cpp > CMakeFiles/CanAppReceiver.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/src/main.cpp > CMakeFiles/CanAppReceiver.dir/src/main.cpp.i
 
 CMakeFiles/CanAppReceiver.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CanAppReceiver.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/trick/kemal/CANFDProject/receiver/src/main.cpp -o CMakeFiles/CanAppReceiver.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/src/main.cpp -o CMakeFiles/CanAppReceiver.dir/src/main.cpp.s
 
 # Object files for target CanAppReceiver
 CanAppReceiver_OBJECTS = \
-"CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o" \
+"CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o" \
 "CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o" \
 "CMakeFiles/CanAppReceiver.dir/src/main.cpp.o"
 
 # External object files for target CanAppReceiver
 CanAppReceiver_EXTERNAL_OBJECTS =
 
-CanAppReceiver: CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o
+CanAppReceiver: CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o
 CanAppReceiver: CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o
 CanAppReceiver: CMakeFiles/CanAppReceiver.dir/src/main.cpp.o
 CanAppReceiver: CMakeFiles/CanAppReceiver.dir/build.make
 CanAppReceiver: CMakeFiles/CanAppReceiver.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/trick/kemal/CANFDProject/receiver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable CanAppReceiver"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable CanAppReceiver"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CanAppReceiver.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -137,6 +137,6 @@ CMakeFiles/CanAppReceiver.dir/clean:
 .PHONY : CMakeFiles/CanAppReceiver.dir/clean
 
 CMakeFiles/CanAppReceiver.dir/depend:
-	cd /home/trick/kemal/CANFDProject/receiver/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/trick/kemal/CANFDProject/receiver /home/trick/kemal/CANFDProject/receiver /home/trick/kemal/CANFDProject/receiver/build /home/trick/kemal/CANFDProject/receiver/build /home/trick/kemal/CANFDProject/receiver/build/CMakeFiles/CanAppReceiver.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/build /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/build /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/build/CMakeFiles/CanAppReceiver.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/CanAppReceiver.dir/depend
 

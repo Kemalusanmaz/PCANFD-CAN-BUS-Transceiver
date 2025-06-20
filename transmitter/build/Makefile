@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/trick/kemal/CANFDProject/transmitter
+CMAKE_SOURCE_DIR = /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/trick/kemal/CANFDProject/transmitter/build
+CMAKE_BINARY_DIR = /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/trick/kemal/CANFDProject/transmitter/build/CMakeFiles /home/trick/kemal/CANFDProject/transmitter/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/build/CMakeFiles /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/trick/kemal/CANFDProject/transmitter/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -129,29 +129,29 @@ CanAppTransmitter/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CanAppTransmitter.dir/build.make CMakeFiles/CanAppTransmitter.dir/build
 .PHONY : CanAppTransmitter/fast
 
-home/trick/kemal/CANFDProject/configuration/src/configuration.o: home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o
-.PHONY : home/trick/kemal/CANFDProject/configuration/src/configuration.o
+home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.o: home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o
+.PHONY : home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.o
 
 # target to build an object file
-home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CanAppTransmitter.dir/build.make CMakeFiles/CanAppTransmitter.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o
-.PHONY : home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o
+home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CanAppTransmitter.dir/build.make CMakeFiles/CanAppTransmitter.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o
+.PHONY : home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o
 
-home/trick/kemal/CANFDProject/configuration/src/configuration.i: home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.i
-.PHONY : home/trick/kemal/CANFDProject/configuration/src/configuration.i
+home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.i: home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.i
+.PHONY : home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.i
 
 # target to preprocess a source file
-home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CanAppTransmitter.dir/build.make CMakeFiles/CanAppTransmitter.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.i
-.PHONY : home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.i
+home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CanAppTransmitter.dir/build.make CMakeFiles/CanAppTransmitter.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.i
+.PHONY : home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.i
 
-home/trick/kemal/CANFDProject/configuration/src/configuration.s: home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.s
-.PHONY : home/trick/kemal/CANFDProject/configuration/src/configuration.s
+home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.s: home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.s
+.PHONY : home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.s
 
 # target to generate assembly for a file
-home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CanAppTransmitter.dir/build.make CMakeFiles/CanAppTransmitter.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.s
-.PHONY : home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.s
+home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CanAppTransmitter.dir/build.make CMakeFiles/CanAppTransmitter.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.s
+.PHONY : home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -210,9 +210,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... CanAppTransmitter"
-	@echo "... home/trick/kemal/CANFDProject/configuration/src/configuration.o"
-	@echo "... home/trick/kemal/CANFDProject/configuration/src/configuration.i"
-	@echo "... home/trick/kemal/CANFDProject/configuration/src/configuration.s"
+	@echo "... home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.o"
+	@echo "... home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.i"
+	@echo "... home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

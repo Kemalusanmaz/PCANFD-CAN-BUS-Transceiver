@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o"
-  "CMakeFiles/CanAppReceiver.dir/home/trick/kemal/CANFDProject/configuration/src/configuration.cpp.o.d"
+  "CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o"
+  "CMakeFiles/CanAppReceiver.dir/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/configuration/src/configuration.cpp.o.d"
   "CMakeFiles/CanAppReceiver.dir/src/main.cpp.o"
   "CMakeFiles/CanAppReceiver.dir/src/main.cpp.o.d"
   "CMakeFiles/CanAppReceiver.dir/src/receive.cpp.o"

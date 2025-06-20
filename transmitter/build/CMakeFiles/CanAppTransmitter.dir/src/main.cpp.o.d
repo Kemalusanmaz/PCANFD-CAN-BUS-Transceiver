@@ -1,7 +1,7 @@
 CMakeFiles/CanAppTransmitter.dir/src/main.cpp.o: \
- /home/trick/kemal/CANFDProject/transmitter/src/main.cpp \
+ /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/src/main.cpp \
  /usr/include/stdc-predef.h \
- /home/trick/kemal/CANFDProject/transmitter/src/../../configuration/include/configuration.hpp \
+ /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/src/../../configuration/include/configuration.hpp \
  /usr/include/x86_64-linux-gnu/sys/time.h /usr/include/features.h \
  /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -22,8 +22,8 @@ CMakeFiles/CanAppTransmitter.dir/src/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
  /usr/include/x86_64-linux-gnu/bits/endian.h \
  /usr/include/x86_64-linux-gnu/bits/endianness.h \
- /home/trick/kemal/CANFDProject/transmitter/src/../../configuration/include/../../driver/peak-linux-driver-8.20.0/driver/pcanfd.h \
- /home/trick/kemal/CANFDProject/transmitter/src/../../configuration/include/../../driver/peak-linux-driver-8.20.0/driver/pcan.h \
+ /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/src/../../configuration/include/../../driver/peak-linux-driver-8.20.0/driver/pcanfd.h \
+ /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/src/../../configuration/include/../../driver/peak-linux-driver-8.20.0/driver/pcan.h \
  /usr/include/linux/types.h /usr/include/x86_64-linux-gnu/asm/types.h \
  /usr/include/asm-generic/types.h /usr/include/asm-generic/int-ll64.h \
  /usr/include/x86_64-linux-gnu/asm/bitsperlong.h \
@@ -288,6 +288,6 @@ CMakeFiles/CanAppTransmitter.dir/src/main.cpp.o: \
  /usr/include/nlohmann/ordered_map.hpp \
  /usr/include/nlohmann/detail/macro_unscope.hpp \
  /usr/include/nlohmann/thirdparty/hedley/hedley_undef.hpp \
- /home/trick/kemal/CANFDProject/transmitter/src/../include/transmit.hpp \
- /home/trick/kemal/CANFDProject/transmitter/src/../include/../../driver/peak-linux-driver-8.20.0/driver/pcanfd.h \
+ /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/src/../include/transmit.hpp \
+ /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/src/../include/../../driver/peak-linux-driver-8.20.0/driver/pcanfd.h \
  /usr/include/c++/11/iostream

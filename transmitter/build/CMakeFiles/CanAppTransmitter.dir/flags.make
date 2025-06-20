@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/trick/kemal/CANFDProject/transmitter/include -I/home/trick/kemal/CANFDProject/transmitter/../configuration/include
+CXX_INCLUDES = -I/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/include -I/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/../configuration/include
 
 CXX_FLAGS = -g
 

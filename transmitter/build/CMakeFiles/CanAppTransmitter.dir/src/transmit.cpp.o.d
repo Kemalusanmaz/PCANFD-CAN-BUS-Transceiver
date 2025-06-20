@@ -1,7 +1,7 @@
 CMakeFiles/CanAppTransmitter.dir/src/transmit.cpp.o: \
- /home/trick/kemal/CANFDProject/transmitter/src/transmit.cpp \
+ /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/src/transmit.cpp \
  /usr/include/stdc-predef.h \
- /home/trick/kemal/CANFDProject/transmitter/src/../include/transmit.hpp \
+ /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/src/../include/transmit.hpp \
  /usr/include/x86_64-linux-gnu/sys/time.h /usr/include/features.h \
  /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -22,8 +22,8 @@ CMakeFiles/CanAppTransmitter.dir/src/transmit.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
  /usr/include/x86_64-linux-gnu/bits/endian.h \
  /usr/include/x86_64-linux-gnu/bits/endianness.h \
- /home/trick/kemal/CANFDProject/transmitter/src/../include/../../driver/peak-linux-driver-8.20.0/driver/pcanfd.h \
- /home/trick/kemal/CANFDProject/transmitter/src/../include/../../driver/peak-linux-driver-8.20.0/driver/pcan.h \
+ /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/src/../include/../../driver/peak-linux-driver-8.20.0/driver/pcanfd.h \
+ /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/src/../include/../../driver/peak-linux-driver-8.20.0/driver/pcan.h \
  /usr/include/linux/types.h /usr/include/x86_64-linux-gnu/asm/types.h \
  /usr/include/asm-generic/types.h /usr/include/asm-generic/int-ll64.h \
  /usr/include/x86_64-linux-gnu/asm/bitsperlong.h \
@@ -142,7 +142,7 @@ CMakeFiles/CanAppTransmitter.dir/src/transmit.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
- /home/trick/kemal/CANFDProject/transmitter/src/../../driver/peak-linux-driver-8.20.0/lib/libpcanfd.h \
+ /home/trick/kemal/PCANFD-CAN-BUS-Transceiver/transmitter/src/../../driver/peak-linux-driver-8.20.0/lib/libpcanfd.h \
  /usr/include/pcanfd.h /usr/include/c++/11/cstring /usr/include/string.h \
  /usr/include/strings.h /usr/include/fcntl.h \
  /usr/include/x86_64-linux-gnu/bits/fcntl.h \
