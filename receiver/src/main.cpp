@@ -200,7 +200,7 @@ int main() {
       conf.getBitTimingRanges();
       conf.getChannelFeatures();
       conf.getDeviceId();
-      conf.getAcceptFilter();
+      conf.getAcceptanceFilter();
       conf.getFrameDelayTime();
       conf.getTimeStampMode();
       conf.getDriverVersion();
