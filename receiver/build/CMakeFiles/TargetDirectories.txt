@@ -1,3 +1,0 @@
-/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/build/CMakeFiles/CanAppReceiver.dir
-/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/build/CMakeFiles/edit_cache.dir
-/home/trick/kemal/PCANFD-CAN-BUS-Transceiver/receiver/build/CMakeFiles/rebuild_cache.dir

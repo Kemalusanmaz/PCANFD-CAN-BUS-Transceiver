@@ -1,0 +1,20 @@
+# File and Folder that generates by Cmake
+build/
+Build/
+CMakeCache.txt
+CMakeLists.txt.user
+CMakeFiles/
+cmake-build-*/
+CTestTestfile.cmake
+compile_commands.json
+
+# ####################### #
+# Executable ve Library Files #
+# ####################### #
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.out
