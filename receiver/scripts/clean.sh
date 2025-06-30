@@ -2,6 +2,8 @@
 
 echo "Build path is cleaned..."
 
+cd ..
+
 # remove build folder and files inside. 
 rm -rf build
 
