@@ -1,0 +1,77 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Receiver - Build",
+			"type": "shell",
+			"group": {},
+			"command": [
+				"./build.sh"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/receiver/scripts/"
+			},
+			"runOptions": {
+				"reevaluateOnRerun": false
+			}
+		},
+		{
+			"label": "Receiver - Run",
+			"type": "shell",
+			"group": "test",
+			"command": [
+				"./run.sh"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/receiver/scripts/"
+			}
+		},
+		{
+			"label": "Receiver - Clean",
+			"type": "shell",
+			"group": "test",
+			"command": [
+				"./clean.sh"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/receiver/scripts/"
+			}
+		},
+		{
+			"label": "Transmitter - Build",
+			"type": "shell",
+			"group": {},
+			"command": [
+				"./build.sh"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/transmitter/scripts/"
+			},
+			"runOptions": {
+				"reevaluateOnRerun": false
+			}
+		},
+		{
+			"label": "Transmitter - Run",
+			"type": "shell",
+			"group": "test",
+			"command": [
+				"./run.sh"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/transmitter/scripts/"
+			}
+		},
+		{
+			"label": "Transmitter - Clean",
+			"type": "shell",
+			"group": "test",
+			"command": [
+				"./clean.sh"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/transmitter/scripts/"
+			}
+		}
+	]
+}
