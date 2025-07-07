@@ -26,12 +26,23 @@ private slots: // Functions that capture events write these blocks as slot funct
     void on_receiver_stop_clicked();
     void on_receiver_setDeviceConfiguration_clicked();
     void on_receiver_getDeviceConfiguration_clicked();
+    void on_receiver_receiveMessages_clicked();
+    void on_receiver_addFilter_clicked();
+    void on_receiver_deleteAllFilters_clicked();
+    void checkForCanMessages(); // Zamanlayıcının tetikleyeceği yeni slot
+
+    void on_transmitter_start_clicked(); // on and clicked is a signal name
+    void on_transmitter_stop_clicked();
+    void on_transmitter_setDeviceConfiguration_clicked();
+    void on_transmitter_getDeviceConfiguration_clicked();
 
 private:
     Ui::MainWindow *ui;
     //Backend koddaki nesneler oluşturulur
-    CANConfiguraton *m_config;
+    CANConfiguraton *m_configReceive;
+    CANConfiguraton *m_configTransmit;
     CANReceive *m_receive;
     CANTransmit *m_transmit;
+    QTimer* m_receiveTimer; // Zamanlayıcı için bir pointer
 };
 #endif // MAINWINDOW_H

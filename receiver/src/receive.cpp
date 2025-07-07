@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cstring> // memset()
 #include <fcntl.h> // open()
+#include <iomanip> // std::setw, std::setfill
 #include <ios>
 #include <iostream>
 #include <malloc.h>
@@ -13,6 +14,7 @@
 #include <string>
 #include <sys/ioctl.h>
 #include <unistd.h> // close()
+#include <vector>
 
 CANReceive::CANReceive(int fd) { m_fd = fd; }
 
@@ -81,19 +83,51 @@ void CANReceive::addMsgFilters() {
   }
 }
 
+void CANReceive::addFilter(std::string idFrom, std::string idTo,
+                           std::string flags) {
+  struct pcanfd_msg_filter newFilter;
+  int idF = std::stoi(idFrom, nullptr, 16);
+  newFilter.id_from = idF;
+
+  int idT = std::stoi(idTo, nullptr, 16);
+  newFilter.id_to = idT;
+
+  if (flags == "STD") {
+    newFilter.msg_flags = PCANFD_MSG_STD;
+  } else if (flags == "RTR") {
+    newFilter.msg_flags = PCANFD_MSG_RTR;
+  } else if (flags == "EXT") {
+    newFilter.msg_flags = PCANFD_MSG_EXT;
+  } else if (flags == "SLF") {
+    newFilter.msg_flags = PCANFD_MSG_SLF;
+  } else if (flags == "SNG") {
+    newFilter.msg_flags = PCANFD_MSG_SNG;
+  } else if (flags == "ECHO") {
+    newFilter.msg_flags = PCANFD_MSG_ECHO;
+  } else {
+  }
+
+  m_filters.push_back(newFilter);
+  std::cout << "Filter (Message Flags: " << flags << "ID: " << std::hex
+            << idFrom << " to " << idTo << ") added to list. "
+            << "Current filter count in list: " << m_filters.size()
+            << std::endl;
+}
+
 // Add filters from a predefined list (array)
 void CANReceive::addMsgFiltersList() {
   // Filter 1: Accept only messages with ID 0x200
-  filters[0].id_from = 0x200;
-  filters[0].id_to = 0x200;
-  filters[0].msg_flags = PCANFD_MSG_STD; // Standard format
+  // filters[0].id_from = 0x200;
+  // filters[0].id_to = 0x200;
+  // filters[0].msg_flags = PCANFD_MSG_STD; // Standard format
 
-  // Filter 2: Accept messages between 0x200 and 0x2FF
-  filters[1].id_from = 0x200;
-  filters[1].id_to = 0x2FF;
-  filters[1].msg_flags = PCANFD_MSG_STD;
+  // // Filter 2: Accept messages between 0x200 and 0x2FF
+  // filters[1].id_from = 0x200;
+  // filters[1].id_to = 0x2FF;
+  // filters[1].msg_flags = PCANFD_MSG_STD;
 
-  int statusMsgFilters = pcanfd_add_filters_list(m_fd, 2, filters);
+  int statusMsgFilters =
+      pcanfd_add_filters_list(m_fd, m_filters.size(), m_filters.data());
   if (statusMsgFilters < 0) {
     perror("pcanfd_add_filters_list");
   } else {
@@ -107,6 +141,7 @@ void CANReceive::deleteAllFilters() {
   if (ret < 0) {
     perror("pcanfd_del_filters");
   } else {
+    m_filters.clear();
     std::cout << "All filters are deleted successfully" << std::endl;
   }
 }
@@ -115,9 +150,9 @@ void CANReceive::deleteAllFilters() {
 void CANReceive::receiveMessage() {
   int ret = pcanfd_recv_msg(m_fd, &receivedMsg);
   if (ret < 0) {
-    perror("Message can not be read");
+    // perror("Message can not be read");
   } else {
-    std::cout << "Message is received!" << std::endl;
+    // std::cout << "Message is received!" << std::endl;
     if (receivedMsg.type == PCANFD_TYPE_CAN20_MSG) {
       std::cout << "Message Type: CAN 2.0" << std::endl;
     } else if (receivedMsg.type == PCANFD_TYPE_CANFD_MSG) {
@@ -130,9 +165,14 @@ void CANReceive::receiveMessage() {
     std::cout << "Data Length: " << receivedMsg.data_len << std::endl;
     std::cout << "Data: ";
     for (int i = 0; i < receivedMsg.data_len; ++i) {
-      printf("0x%02X ", receivedMsg.data[i]);
+      std::cout << "0x" << std::hex // Hexadecimal moda geç
+                << std::setw(2)     // Genişliği 2 karaktere ayarla
+                << std::setfill('0') // Boşlukları '0' ile doldur (örn: 5 -> 05)
+                << static_cast<int>(
+                       receivedMsg.data[i]) // uint8_t'yi int'e çevirerek yazdır
+                << " ";
     }
-    std::cout << std::endl;
+    std::cout << std::dec << std::endl;
     std::cout << "Flags: 0x" << std::hex << receivedMsg.flags << std::dec
               << std::endl;
     std::cout << std::endl;
@@ -142,7 +182,7 @@ void CANReceive::receiveMessage() {
 void CANReceive::receiveMessageList() {
   const int max_msgs = 5;
 
-  // reserved for received messages. 
+  // reserved for received messages.
   struct pcanfd_msg msgs[max_msgs];
 
   // Read messages
@@ -175,7 +215,7 @@ void CANReceive::receiveMessages() {
     free(pml);
   }
 
-   // process received messages.
+  // process received messages.
   for (int i = 0; i < static_cast<int>(pml->count); ++i) {
     processMsg(&(pml->list[i]));
   }

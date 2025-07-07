@@ -4,6 +4,7 @@
 #include <sys/time.h>
 #include "../../driver/peak-linux-driver-8.20.0/driver/pcanfd.h"
 #include <string>
+#include <vector>
 
 /**
  * @class CANReceive
@@ -39,13 +40,20 @@ public:
 
   void receiveMessageList();
 
+  std::vector<struct pcanfd_msg_filter> getFilters() const { return m_filters; }
+
+  void addFilter(std::string idFrom, std::string idTo,
+                 std::string flags);
+
 
 private:
   int processMsg(struct pcanfd_msg *pm);
   int m_fd; // File descriptor for the CAN device.
   struct pcanfd_msg_filter msgFilter {}; // Structure for a single CAN message filter.
   struct pcanfd_msg_filter filters[2]; // Array of message filters.
+public:
   struct pcanfd_msg receivedMsg {}; // Structure to store the received CAN message.
+  std::vector<struct pcanfd_msg_filter> m_filters; 
 };
 
 #endif // RECEIVE_HPP

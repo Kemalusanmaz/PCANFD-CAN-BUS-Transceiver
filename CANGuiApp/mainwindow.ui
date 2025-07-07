@@ -104,9 +104,9 @@
      <widget class="QSpinBox" name="receiver_clock">
       <property name="geometry">
        <rect>
-        <x>1100</x>
-        <y>50</y>
-        <width>161</width>
+        <x>1128</x>
+        <y>8</y>
+        <width>171</width>
         <height>27</height>
        </rect>
       </property>
@@ -123,9 +123,9 @@
      <widget class="QPushButton" name="receiver_setDeviceConfiguration">
       <property name="geometry">
        <rect>
-        <x>1070</x>
-        <y>170</y>
-        <width>219</width>
+        <x>1090</x>
+        <y>100</y>
+        <width>201</width>
         <height>26</height>
        </rect>
       </property>
@@ -136,8 +136,8 @@
      <widget class="QSpinBox" name="receiver_nominalBitRate">
       <property name="geometry">
        <rect>
-        <x>1100</x>
-        <y>90</y>
+        <x>1130</x>
+        <y>38</y>
         <width>170</width>
         <height>27</height>
        </rect>
@@ -146,17 +146,17 @@
        <string> bps</string>
       </property>
       <property name="maximum">
-       <number>1000000</number>
+       <number>500000</number>
       </property>
       <property name="value">
-       <number>1000000</number>
+       <number>500000</number>
       </property>
      </widget>
      <widget class="QSpinBox" name="receiver_dataBitRate">
       <property name="geometry">
        <rect>
-        <x>1100</x>
-        <y>120</y>
+        <x>1130</x>
+        <y>68</y>
         <width>170</width>
         <height>27</height>
        </rect>
@@ -174,9 +174,9 @@
      <widget class="QPushButton" name="receiver_getDeviceConfiguration">
       <property name="geometry">
        <rect>
-        <x>860</x>
-        <y>420</y>
-        <width>219</width>
+        <x>1090</x>
+        <y>130</y>
+        <width>201</width>
         <height>26</height>
        </rect>
       </property>
@@ -184,11 +184,392 @@
        <string>Get Device Configuration</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="receiver_receiveMessages">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>450</y>
+        <width>140</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Receive Messages</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="receiver_receiveMessagesDisplay">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>10</y>
+        <width>1001</width>
+        <height>381</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="plainText">
+       <string/>
+      </property>
+      <property name="centerOnScroll">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="receiver_addFilter">
+      <property name="geometry">
+       <rect>
+        <x>1058</x>
+        <y>240</y>
+        <width>101</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Add Filter</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="receive_idFrom">
+      <property name="geometry">
+       <rect>
+        <x>1105</x>
+        <y>200</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="receive_idTo">
+      <property name="geometry">
+       <rect>
+        <x>1203</x>
+        <y>200</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>1115</x>
+        <y>183</y>
+        <width>60</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ID From</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>1220</x>
+        <y>183</y>
+        <width>41</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ID To</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>1080</x>
+        <y>14</y>
+        <width>41</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clock</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>1034</x>
+        <y>44</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Data Bitrate</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>1007</x>
+        <y>73</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nominal Bitrate</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="receive_flags">
+      <property name="geometry">
+       <rect>
+        <x>1010</x>
+        <y>202</y>
+        <width>93</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>STD</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>RTR</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>EXT</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>SLF</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>SNG</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ECHO</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>1033</x>
+        <y>183</y>
+        <width>40</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Flags</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="receiver_deleteAllFilters">
+      <property name="geometry">
+       <rect>
+        <x>1165</x>
+        <y>240</y>
+        <width>130</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Delete All Filters</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
       <string>Transmitter</string>
      </attribute>
+     <widget class="QPushButton" name="transmitter_start">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>410</y>
+        <width>100</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Start</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="transmitter_logDisplay">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>410</y>
+        <width>751</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="plainText">
+       <string/>
+      </property>
+      <property name="centerOnScroll">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="transmitter_stop">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>440</y>
+        <width>100</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Stop</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>390</y>
+        <width>91</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Log Window</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="transmitter_dataBitRate">
+      <property name="geometry">
+       <rect>
+        <x>1120</x>
+        <y>70</y>
+        <width>170</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="suffix">
+       <string> bps</string>
+      </property>
+      <property name="maximum">
+       <number>10000000</number>
+      </property>
+      <property name="value">
+       <number>2000000</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>997</x>
+        <y>75</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nominal Bitrate</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="transmitter_clock">
+      <property name="geometry">
+       <rect>
+        <x>1118</x>
+        <y>10</y>
+        <width>171</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="suffix">
+       <string notr="true"> Hz</string>
+      </property>
+      <property name="maximum">
+       <number>100000000</number>
+      </property>
+      <property name="value">
+       <number>80000000</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>1070</x>
+        <y>16</y>
+        <width>41</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clock</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>1024</x>
+        <y>46</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Data Bitrate</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="transmitter_getDeviceConfiguration">
+      <property name="geometry">
+       <rect>
+        <x>1080</x>
+        <y>132</y>
+        <width>201</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Get Device Configuration</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="transmitter_setDeviceConfiguration">
+      <property name="geometry">
+       <rect>
+        <x>1080</x>
+        <y>102</y>
+        <width>201</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Set Device Configuration</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="transmitter_nominalBitRate">
+      <property name="geometry">
+       <rect>
+        <x>1120</x>
+        <y>40</y>
+        <width>170</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="suffix">
+       <string> bps</string>
+      </property>
+      <property name="maximum">
+       <number>500000</number>
+      </property>
+      <property name="value">
+       <number>500000</number>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>

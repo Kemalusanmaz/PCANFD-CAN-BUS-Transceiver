@@ -59,7 +59,7 @@ void CANConfiguraton::initialize(std::string deviceStr) {
 
     fd = open(
         device,
-        O_RDWR);  // open can channel device file with both read and write mode
+        O_RDWR | O_NONBLOCK);  // open can channel device file with both read and write mode
     if (fd < 0) { // if there is an error, return -1
         perror("open");
     } else {
