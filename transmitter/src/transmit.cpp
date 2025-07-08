@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/ioctl.h>
+#include <sys/types.h>
 #include <unistd.h> // close()
 
 // Initializes CANTransmit object with given file descriptor.
@@ -21,7 +22,7 @@ CANTransmit::CANTransmit(int fd) {
 
 // Sends a CAN message using messageType (0 = CAN FD, 1 = CAN 2.0),
 // CAN ID (hex string), and data (hex string).
-void CANTransmit::sendMessage(int messageType, std::string id,
+void CANTransmit::sendMessage(int messageType, uint32_t id, std::string flags,
                               std::string data) {
   // Select message type
   if (messageType == 0) {
@@ -29,9 +30,8 @@ void CANTransmit::sendMessage(int messageType, std::string id,
   } else if (messageType == 1) {
     canfdMsg.type = PCANFD_TYPE_CAN20_MSG;
   }
-
-  int i = std::stoi(id, nullptr, 16); // Convert hex string ID to integer
-  canfdMsg.id = i;
+  // auto i = std::stoi(id, nullptr, 16); // Convert hex string ID to integer
+  canfdMsg.id = id;
 
   canfdMsg.data_len = data.length() / 2; // Calculate number of bytes in data
 
@@ -41,17 +41,34 @@ void CANTransmit::sendMessage(int messageType, std::string id,
     uint8_t byte = static_cast<uint8_t>(std::stoul(byteString, nullptr, 16));
     canfdMsg.data[i / 2] = byte;
   }
-  canfdMsg.flags =
-      PCANFD_MSG_STD; // Defines whether the message is remote transmission
-                      // (RTR), uses a 29-bit ID (EXT), or requests the data
-                      // section to be sent quickly (BRS) Default Standard
-                      // message (11-bit ID)
+
+  // Defines whether the message is remote transmission
+  // (RTR), uses a 29-bit ID (EXT), or requests the data
+  // section to be sent quickly (BRS) Default Standard
+  // message (11-bit ID)
+  if (flags == "STD") {
+    canfdMsg.flags = PCANFD_MSG_STD;
+  } else if (flags == "RTR") {
+    canfdMsg.flags = PCANFD_MSG_RTR;
+  } else if (flags == "EXT") {
+    canfdMsg.flags = PCANFD_MSG_EXT;
+  } else if (flags == "SLF") {
+    canfdMsg.flags = PCANFD_MSG_SLF;
+  } else if (flags == "SNG") {
+    canfdMsg.flags = PCANFD_MSG_SNG;
+  } else if (flags == "ECHO") {
+    canfdMsg.flags = PCANFD_MSG_ECHO;
+  } else {
+    canfdMsg.flags = PCANFD_MSG_STD;
+  }
+
+  // canfdMsg.flags = PCANFD_MSG_STD;
   int ret = pcanfd_send_msg(m_fd, &canfdMsg);
   // Send the message
   if (ret < 0) {
     perror("Message cannot sent!");
   } else {
-    std::cout << "Message is sent successfully." << std::endl;
+    std::cout << "Message is sent successfully!." << std::endl;
   }
 }
 
@@ -93,7 +110,7 @@ void CANTransmit::sendRandomMessage(int messageType, std::string id,
   if (ret < 0) {
     perror("Message cannot sent!");
   } else {
-    std::cout << "Message is sent successfully." << std::endl;
+    std::cout << "Message is sent successfully!." << std::endl;
   }
 }
 
@@ -128,7 +145,7 @@ void CANTransmit::sendMessageList() {
   if (ret < 0) {
     perror("Messages cannot be sent");
   } else {
-    printf("%d message is sent successfully.\n", numberOfMessages);
+    printf("%d message is sent successfully!\n", numberOfMessages);
   }
 }
 

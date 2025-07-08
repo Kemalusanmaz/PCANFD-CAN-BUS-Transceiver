@@ -18,7 +18,8 @@ public:
    * @param id CAN ID in string format (hexadecimal).
    * @param data Payload data as a hexadecimal string.
    */
-  void sendMessage(int messageType, std::string id, std::string data);
+  void sendMessage(int messageType, uint32_t id, std::string flags,
+                   std::string data);
   /**
    * @brief Sends a CAN message with random data of given length.
    * @param messageType Type of message (e.g., standard or extended).

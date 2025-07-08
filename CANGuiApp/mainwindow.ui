@@ -6,25 +6,31 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1308</width>
-    <height>605</height>
+    <width>1339</width>
+    <height>662</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>CAN Bus Manager v1.0</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: lightgrey;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>0</y>
-      <width>1301</width>
-      <height>541</height>
+      <width>1311</width>
+      <height>611</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: lightgrey;</string>
+    </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -34,13 +40,19 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>420</y>
-        <width>751</width>
-        <height>91</height>
+        <y>500</y>
+        <width>1111</width>
+        <height>71</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
       </property>
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
       <property name="plainText">
        <string/>
@@ -53,7 +65,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>400</y>
+        <y>480</y>
         <width>91</width>
         <height>18</height>
        </rect>
@@ -65,8 +77,8 @@
      <widget class="QPushButton" name="receiver_start">
       <property name="geometry">
        <rect>
-        <x>758</x>
-        <y>420</y>
+        <x>1160</x>
+        <y>510</y>
         <width>100</width>
         <height>26</height>
        </rect>
@@ -75,24 +87,11 @@
        <string>Start</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="receiver_freeze">
-      <property name="geometry">
-       <rect>
-        <x>758</x>
-        <y>450</y>
-        <width>100</width>
-        <height>26</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Freeze</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="receiver_stop">
       <property name="geometry">
        <rect>
-        <x>758</x>
-        <y>480</y>
+        <x>1160</x>
+        <y>540</y>
         <width>100</width>
         <height>26</height>
        </rect>
@@ -109,6 +108,9 @@
         <width>171</width>
         <height>27</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
       </property>
       <property name="suffix">
        <string notr="true"> Hz</string>
@@ -142,6 +144,9 @@
         <height>27</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
       <property name="suffix">
        <string> bps</string>
       </property>
@@ -160,6 +165,9 @@
         <width>170</width>
         <height>27</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
       </property>
       <property name="suffix">
        <string> bps</string>
@@ -187,10 +195,10 @@
      <widget class="QPushButton" name="receiver_receiveMessages">
       <property name="geometry">
        <rect>
-        <x>860</x>
-        <y>450</y>
-        <width>140</width>
-        <height>26</height>
+        <x>1100</x>
+        <y>350</y>
+        <width>151</width>
+        <height>81</height>
        </rect>
       </property>
       <property name="text">
@@ -203,8 +211,11 @@
         <x>0</x>
         <y>10</y>
         <width>1001</width>
-        <height>381</height>
+        <height>461</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
       </property>
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
@@ -238,6 +249,9 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
      </widget>
      <widget class="QTextEdit" name="receive_idTo">
       <property name="geometry">
@@ -247,6 +261,9 @@
         <width>91</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_2">
@@ -323,6 +340,9 @@
         <height>26</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
       <item>
        <property name="text">
         <string/>
@@ -393,8 +413,8 @@
      <widget class="QPushButton" name="transmitter_start">
       <property name="geometry">
        <rect>
-        <x>760</x>
-        <y>410</y>
+        <x>1120</x>
+        <y>505</y>
         <width>100</width>
         <height>26</height>
        </rect>
@@ -407,13 +427,19 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>410</y>
-        <width>751</width>
-        <height>91</height>
+        <y>500</y>
+        <width>1111</width>
+        <height>71</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
       </property>
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
       <property name="plainText">
        <string/>
@@ -425,8 +451,8 @@
      <widget class="QPushButton" name="transmitter_stop">
       <property name="geometry">
        <rect>
-        <x>760</x>
-        <y>440</y>
+        <x>1120</x>
+        <y>535</y>
         <width>100</width>
         <height>26</height>
        </rect>
@@ -439,7 +465,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>390</y>
+        <y>480</y>
         <width>91</width>
         <height>18</height>
        </rect>
@@ -451,11 +477,14 @@
      <widget class="QSpinBox" name="transmitter_dataBitRate">
       <property name="geometry">
        <rect>
-        <x>1120</x>
-        <y>70</y>
+        <x>1130</x>
+        <y>68</y>
         <width>170</width>
         <height>27</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
       </property>
       <property name="suffix">
        <string> bps</string>
@@ -470,8 +499,8 @@
      <widget class="QLabel" name="label_12">
       <property name="geometry">
        <rect>
-        <x>997</x>
-        <y>75</y>
+        <x>1007</x>
+        <y>73</y>
         <width>121</width>
         <height>20</height>
        </rect>
@@ -483,11 +512,14 @@
      <widget class="QSpinBox" name="transmitter_clock">
       <property name="geometry">
        <rect>
-        <x>1118</x>
-        <y>10</y>
+        <x>1128</x>
+        <y>8</y>
         <width>171</width>
         <height>27</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
       </property>
       <property name="suffix">
        <string notr="true"> Hz</string>
@@ -502,8 +534,8 @@
      <widget class="QLabel" name="label_6">
       <property name="geometry">
        <rect>
-        <x>1070</x>
-        <y>16</y>
+        <x>1080</x>
+        <y>14</y>
         <width>41</width>
         <height>18</height>
        </rect>
@@ -515,8 +547,8 @@
      <widget class="QLabel" name="label_13">
       <property name="geometry">
        <rect>
-        <x>1024</x>
-        <y>46</y>
+        <x>1034</x>
+        <y>44</y>
         <width>91</width>
         <height>20</height>
        </rect>
@@ -528,8 +560,8 @@
      <widget class="QPushButton" name="transmitter_getDeviceConfiguration">
       <property name="geometry">
        <rect>
-        <x>1080</x>
-        <y>132</y>
+        <x>1090</x>
+        <y>130</y>
         <width>201</width>
         <height>26</height>
        </rect>
@@ -541,8 +573,8 @@
      <widget class="QPushButton" name="transmitter_setDeviceConfiguration">
       <property name="geometry">
        <rect>
-        <x>1080</x>
-        <y>102</y>
+        <x>1090</x>
+        <y>100</y>
         <width>201</width>
         <height>26</height>
        </rect>
@@ -554,11 +586,14 @@
      <widget class="QSpinBox" name="transmitter_nominalBitRate">
       <property name="geometry">
        <rect>
-        <x>1120</x>
-        <y>40</y>
+        <x>1130</x>
+        <y>38</y>
         <width>170</width>
         <height>27</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
       </property>
       <property name="suffix">
        <string> bps</string>
@@ -570,6 +605,857 @@
        <number>500000</number>
       </property>
      </widget>
+     <widget class="QTableWidget" name="transmitter_data">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>30</y>
+        <width>881</width>
+        <height>361</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="verticalScrollMode">
+       <enum>QAbstractItemView::ScrollMode::ScrollPerItem</enum>
+      </property>
+      <property name="rowCount">
+       <number>8</number>
+      </property>
+      <property name="columnCount">
+       <number>8</number>
+      </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderMinimumSectionSize">
+       <number>40</number>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>110</number>
+      </attribute>
+      <attribute name="horizontalHeaderHighlightSections">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderDefaultSectionSize">
+       <number>45</number>
+      </attribute>
+      <attribute name="verticalHeaderHighlightSections">
+       <bool>false</bool>
+      </attribute>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <item row="0" column="0">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="0" column="2">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="0" column="3">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="0" column="4">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="0" column="5">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="0" column="6">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="0" column="7">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="1" column="0">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="1" column="1">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="1" column="2">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="1" column="3">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="1" column="4">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="1" column="5">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="1" column="6">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="1" column="7">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="2" column="0">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="2" column="1">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="2" column="2">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="2" column="3">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="2" column="4">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="2" column="5">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="2" column="6">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="2" column="7">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="3" column="0">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="3" column="1">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="3" column="2">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="3" column="3">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="3" column="4">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="3" column="5">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="3" column="6">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="3" column="7">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="4" column="0">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="4" column="1">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="4" column="2">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="4" column="3">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="4" column="4">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="4" column="5">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="4" column="6">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="4" column="7">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="5" column="0">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="5" column="1">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="5" column="2">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="5" column="3">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="5" column="4">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="5" column="5">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="5" column="6">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="5" column="7">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="6" column="0">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="6" column="1">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="6" column="2">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="6" column="3">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="6" column="4">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="6" column="5">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="6" column="6">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="6" column="7">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="7" column="0">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="7" column="1">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="7" column="2">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="7" column="3">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="7" column="4">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="7" column="5">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="7" column="6">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+      <item row="7" column="7">
+       <property name="text">
+        <string>-</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>45</y>
+        <width>50</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Byte 0</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>135</y>
+        <width>61</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Byte 16</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_15">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>90</y>
+        <width>61</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Byte 8</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_16">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>180</y>
+        <width>61</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Byte 24</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_17">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>225</y>
+        <width>61</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Byte 32</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_18">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>270</y>
+        <width>61</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Byte 40</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_19">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>315</y>
+        <width>61</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Byte 48</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_20">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>360</y>
+        <width>61</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Byte 56</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="transmitter_send">
+      <property name="geometry">
+       <rect>
+        <x>1110</x>
+        <y>350</y>
+        <width>100</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Send</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="transmitter_messageType">
+      <property name="geometry">
+       <rect>
+        <x>1184</x>
+        <y>230</y>
+        <width>111</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>CAN FD</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>CAN 2.0</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_21">
+      <property name="geometry">
+       <rect>
+        <x>1070</x>
+        <y>233</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Message Type</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_22">
+      <property name="geometry">
+       <rect>
+        <x>1164</x>
+        <y>264</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ID</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="transmitter_flags">
+      <property name="geometry">
+       <rect>
+        <x>1184</x>
+        <y>200</y>
+        <width>111</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>STD</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>RTR</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>EXT</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>SLF</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>SNG</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ECHO</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_23">
+      <property name="geometry">
+       <rect>
+        <x>1141</x>
+        <y>204</y>
+        <width>40</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Flags</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="transmitter_id">
+      <property name="geometry">
+       <rect>
+        <x>1184</x>
+        <y>260</y>
+        <width>113</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="transmitter_dataDisplay">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>390</y>
+        <width>881</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+      <property name="plainText">
+       <string/>
+      </property>
+      <property name="centerOnScroll">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -578,13 +1464,39 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1308</width>
+     <width>1339</width>
      <height>23</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>receiver_start</tabstop>
+  <tabstop>receiver_stop</tabstop>
+  <tabstop>receiver_clock</tabstop>
+  <tabstop>receiver_setDeviceConfiguration</tabstop>
+  <tabstop>receiver_nominalBitRate</tabstop>
+  <tabstop>receiver_dataBitRate</tabstop>
+  <tabstop>receiver_getDeviceConfiguration</tabstop>
+  <tabstop>receiver_receiveMessages</tabstop>
+  <tabstop>receiver_receiveMessagesDisplay</tabstop>
+  <tabstop>receiver_addFilter</tabstop>
+  <tabstop>receive_idFrom</tabstop>
+  <tabstop>receive_idTo</tabstop>
+  <tabstop>receive_flags</tabstop>
+  <tabstop>receiver_deleteAllFilters</tabstop>
+  <tabstop>transmitter_start</tabstop>
+  <tabstop>transmitter_logDisplay</tabstop>
+  <tabstop>transmitter_stop</tabstop>
+  <tabstop>transmitter_dataBitRate</tabstop>
+  <tabstop>transmitter_clock</tabstop>
+  <tabstop>transmitter_getDeviceConfiguration</tabstop>
+  <tabstop>transmitter_setDeviceConfiguration</tabstop>
+  <tabstop>transmitter_nominalBitRate</tabstop>
+  <tabstop>receiver_logDisplay</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
