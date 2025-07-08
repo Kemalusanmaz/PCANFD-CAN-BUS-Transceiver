@@ -3,14 +3,27 @@
 # If there is an error during the exit, stop the script.
 set -e
 
-# Executable path file
-EXECUTABLE="../CANGuiApp/build/Desktop_Qt_6_9_1-Debug/CANGuiApp"
+# Find path of script (/.../PCANFD-CAN-BUS-Transceiver/bin) 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-# # If it's not compile, first run build script.
-# if [ ! -f "$EXECUTABLE" ]; then
-#     echo "Program is not compiled. First ./build.sh is run..."
-#     ./build.sh
-# fi
+# Main project path
+# SCRIPT_DIR/.. -> /.../PCANFD-CAN-BUS-Transceiver/
+PROJECT_ROOT="$SCRIPT_DIR/.."
 
-# echo "Program is working..."
-$EXECUTABLE
+# Create executable path
+EXECUTABLE_PATH="$PROJECT_ROOT/CANGuiApp/build/Desktop_Qt_6_9_1-Release/CanGuiApp"
+
+# Check there is an executable
+if [ ! -f "$EXECUTABLE_PATH" ]; then
+    echo "Error: Executable can not be found!"
+    echo "Correct path: $EXECUTABLE_PATH"
+    exit 1
+fi
+
+echo "executable is initializing: $EXECUTABLE_PATH"
+echo "----------------------------------------"
+
+cd "$(dirname "$EXECUTABLE_PATH")"
+
+# run executable
+./"$(basename "$EXECUTABLE_PATH")" "$@"
