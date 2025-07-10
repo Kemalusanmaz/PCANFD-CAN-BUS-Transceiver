@@ -44,6 +44,8 @@ MainWindow::~MainWindow()
     delete m_receive;
     delete m_transmit;
     delete m_receiveTimer;
+    delete m_settingsReceive;
+    delete m_settingsTransmit;
 }
 
 QString MainWindow::captureStdOut(const std::function<void ()> &func)
@@ -81,6 +83,7 @@ void MainWindow::on_receiver_start_clicked()
     }
 
     m_receive = new CANReceive(m_configReceive->getFd());
+    m_settingsReceive = new CanChannelSettings();
     m_receive->deleteAllFilters();
 
     ui->receiver_stop->setEnabled(true);
@@ -126,10 +129,12 @@ void MainWindow::on_receiver_setDeviceConfiguration_clicked()
     int nominalBitRate = ui->receiver_nominalBitRate->value();
     int dataBitrate= ui->receiver_dataBitRate->value();
 
-    QString output = captureStdOut([&]() {
-        m_configReceive->setCanConfig(1, clock, nominalBitRate, dataBitrate);
-        // m_configReceive->setCanConfig(0);
-    });
+    m_settingsReceive->setClock(clock);
+    m_settingsReceive->setNominalBitRate(nominalBitRate);
+    m_settingsReceive->setDataBitRate(nominalBitRate);
+        QString output = captureStdOut([&]() {
+              m_configReceive->setCanConfig(*m_settingsReceive);
+          });
 
     if (!output.isEmpty()) {
         ui->receiver_logDisplay->appendPlainText(output);
@@ -222,6 +227,7 @@ void MainWindow::checkForCanMessages()
 void MainWindow::on_transmitter_start_clicked()
 {
     m_configTransmit = new CANConfiguraton();
+    m_settingsTransmit = new CanChannelSettings();
 
     QString output = captureStdOut([&]() {
         m_configTransmit->initialize(m_configTransmit->getJsonData()["transmitterDeviceName"]);
@@ -264,8 +270,11 @@ void MainWindow::on_transmitter_setDeviceConfiguration_clicked()
     int nominalBitRate = ui->transmitter_nominalBitRate->value();
     int dataBitrate= ui->transmitter_dataBitRate->value();
 
+    m_settingsTransmit->setClock(clock);
+    m_settingsTransmit->setNominalBitRate(nominalBitRate);
+    m_settingsTransmit->setDataBitRate(dataBitrate);
     QString output = captureStdOut([&]() {
-        m_configTransmit->setCanConfig(1, clock, nominalBitRate, dataBitrate);
+        m_configTransmit->setCanConfig(*m_settingsTransmit);
     });
 
     if (!output.isEmpty()) {

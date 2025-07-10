@@ -4,6 +4,7 @@
 #include <sys/time.h>
 #include "../../driver/peak-linux-driver-8.20.0/driver/pcanfd.h"
 #include <nlohmann/json.hpp>
+#include "../include/canChannelSettings.hpp"
 
 /**
  * @class CANConfiguraton
@@ -11,6 +12,7 @@
  * CAN device.
  */
 class CANConfiguraton {
+  
 public:
   CANConfiguraton();
   /**
@@ -19,14 +21,17 @@ public:
    */
   void initialize(std::string deviceStr);
   /**
+   * @brief Parses the CAN configuration from a JSON file or source.
+   */
+  void jsonParser();
+  /**
    * @brief Sets CAN interface configuration with custom parameters.
    * @param flag Configuration flags (e.g., PCANFD_INIT_xxx).
    * @param clockHz Optional clock frequency (Hz).
    * @param nominalBitrate Optional nominal bitrate (bit/s).
    * @param dataBitrate Optional data bitrate for CAN FD (bit/s).
    */
-  void setCanConfig(int flag, int clockHz = 0, int nominalBitrate = 0,
-                    int dataBitrate = 0);
+  void setCanConfig(CanChannelSettings settings);
   /**
    * @brief Gets and prints the current CAN configuration.
    */
@@ -192,10 +197,7 @@ public:
   void getPartNumber();
 
 private:
-  /**
-   * @brief Parses the CAN configuration from a JSON file or source.
-   */
-  void jsonParser();
+  
   /**
    * @brief Utility function to check the return code from driver calls.
    * @param ret Return code.

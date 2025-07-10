@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "../configuration/include/configuration.hpp"
+#include "../configuration/include/canChannelSettings.hpp"
 #include "../receiver/include/receive.hpp"
 #include "../transmitter/include/transmit.hpp"
 class QRegularExpressionValidator;
@@ -37,10 +38,6 @@ private slots: // Functions that capture events write these blocks as slot funct
 
      // İçerik değiştiğinde veri toplama ve doğrulama için
     void on_transmitter_data_cellChanged(int row, int column);
-
-    // Hücre seçimi değiştiğinde otomatik ilerleme için
-    // void on_transmitter_data_currentCellChanged(int currentRow, int currentColumn,
-    //                                             int previousRow, int previousColumn);
     void on_transmitter_send_clicked();
     void on_transmitter_setDeviceConfiguration_clicked();
     void on_transmitter_getDeviceConfiguration_clicked();
@@ -55,6 +52,8 @@ private:
     CANReceive *m_receive;
     CANTransmit *m_transmit;
     QTimer* m_receiveTimer; // Zamanlayıcı için bir pointer
+    CanChannelSettings *m_settingsReceive;
+    CanChannelSettings *m_settingsTransmit;
 
     void setupHexTable(); // Tabloyu ilk kuran fonksiyon
     void resetHexTable(); // Tabloyu ve veriyi sıfırlayan fonksiyon

@@ -68,7 +68,7 @@ void CANTransmit::sendMessage(int messageType, uint32_t id, std::string flags,
   if (ret < 0) {
     perror("Message cannot sent!");
   } else {
-    std::cout << "Message is sent successfully!." << std::endl;
+    std::cout << "Message is sent successfully!" << std::endl;
   }
 }
 

@@ -1,10 +1,14 @@
+#include "../../configuration/include/canChannelSettings.hpp"
 #include "../../configuration/include/configuration.hpp"
 #include "../include/transmit.hpp"
+#include <cstdint>
 #include <iostream>
 #include <string>
 
 int main() {
   CANConfiguraton conf;
+  CanChannelSettings settings;
+  conf.jsonParser();
   // Initialize CAN configuration with transmitter device name from JSON config
   conf.initialize(conf.getJsonData()["transmitterDeviceName"]);
   conf.isCanFdCapable();
@@ -33,7 +37,10 @@ int main() {
 
     if (confOption == 0) {
       // Use default CAN configuration parameters
-      conf.setCanConfig(confOption);
+      settings.setClock(conf.getJsonData()["clockHz"]);
+      settings.setClock(conf.getJsonData()["nominalBitrate"]);
+      settings.setClock(conf.getJsonData()["dataBitrate"]);
+      conf.setCanConfig(settings);
       std::cout << std::endl;
       conf.getCanConfig(); // Show current CAN configuration
       std::cout << std::endl;
@@ -51,7 +58,11 @@ int main() {
       std::cout << "Data Bitrate: ";
       std::cin >> dataBitrate;
 
-      conf.setCanConfig(confOption, clockHz, nominalBitrate, dataBitrate);
+      settings.setClock(clockHz);
+      settings.setClock(nominalBitrate);
+      settings.setClock(dataBitrate);
+
+      conf.setCanConfig(settings);
       std::cout << std::endl;
       conf.getCanConfig(); // Show updated CAN configuration
       std::cout << std::endl;
@@ -243,7 +254,7 @@ int main() {
         std::cout << "Message Type (0-CAN FD, 1-CAN 2.0): ";
         std::cin >> msgType;
 
-        std::string id;
+        uint32_t id;
         std::cout << "Id: ";
         std::cin >> id;
 
@@ -252,7 +263,12 @@ int main() {
         std::cin >> data;
         std::cout << std::endl;
 
-        transmit.sendMessage(msgType, id, data);
+        std::cout << "Flag: ";
+        std::string flag;
+        std::cin >> flag;
+        std::cout << std::endl;
+
+        transmit.sendMessage(msgType, id, flag, data);
       } else if (sendMsgOption == 2) {
         // Send multiple messages (implementation inside sendMessages())
         transmit.sendMessages();

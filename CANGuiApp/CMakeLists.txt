@@ -30,6 +30,7 @@ set(PROJECT_FILES
     # Configuration Dosyaları
     ${CMAKE_CURRENT_SOURCE_DIR}/../configuration/src/configuration.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../configuration/include/configuration.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../configuration/include/canChannelSettings.hpp
 
     # Receiver Dosyaları
     ${CMAKE_CURRENT_SOURCE_DIR}/../receiver/src/receive.cpp
@@ -60,4 +61,20 @@ target_link_directories(CanGuiApp PRIVATE
 target_link_libraries(CanGuiApp PRIVATE
     Qt6::Widgets
     pcanfd
+)
+
+# =================================================================
+# === Konfigurasyon Dosyasını Build Dizinine Kopyala ===
+# =================================================================
+
+# canConfig.json dosyasının proje kökündeki yolunu bul
+set(CONFIG_FILE ${CMAKE_CURRENT_SOURCE_DIR}/../canConfig.json)
+
+# Proje derlendikten sonra dosyayı çalıştırılabilir dosyanın yanına kopyala
+add_custom_command(
+    TARGET CanGuiApp POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    "${CONFIG_FILE}"
+    "$<TARGET_FILE_DIR:CanGuiApp>"
+    COMMENT "Kopyalaniyor: canConfig.json -> build dizinine"
 )

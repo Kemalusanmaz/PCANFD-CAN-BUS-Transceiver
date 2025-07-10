@@ -1,3 +1,4 @@
+#include "../../configuration/include/canChannelSettings.hpp"
 #include "../../configuration/include/configuration.hpp"
 #include "../include/receive.hpp"
 #include <iostream>
@@ -7,6 +8,8 @@
 int main() {
 
   CANConfiguraton conf;
+  CanChannelSettings settings;
+  conf.jsonParser();
   // Initialize CAN configuration with receiver device name from JSON
   conf.initialize(conf.getJsonData()["receiverDeviceName"]);
   conf.isCanFdCapable();
@@ -36,7 +39,10 @@ int main() {
 
     if (confOption == 0) {
       // Use default CAN configuration parameters
-      conf.setCanConfig(confOption);
+      settings.setClock(conf.getJsonData()["clockHz"]);
+      settings.setClock(conf.getJsonData()["nominalBitrate"]);
+      settings.setClock(conf.getJsonData()["dataBitrate"]);
+      conf.setCanConfig(settings);
       std::cout << std::endl;
       conf.getCanConfig(); // Show current CAN configuration
       std::cout << std::endl;
@@ -54,7 +60,11 @@ int main() {
       std::cout << "Data Bitrate: ";
       std::cin >> dataBitrate;
 
-      conf.setCanConfig(confOption, clockHz, nominalBitrate, dataBitrate);
+      settings.setClock(clockHz);
+      settings.setClock(nominalBitrate);
+      settings.setClock(dataBitrate);
+
+      conf.setCanConfig(settings);
       std::cout << std::endl;
       conf.getCanConfig(); // Show updated CAN configuration
       std::cout << std::endl;
