@@ -108,30 +108,19 @@ void CANReceive::addFilter(std::string idFrom, std::string idTo,
   }
 
   m_filters.push_back(newFilter);
-  std::cout << "Filter (Message Flags: " << flags << "ID: " << std::hex
-            << idFrom << " to " << idTo << ") added to list. "
-            << "Current filter count in list: " << m_filters.size()
-            << std::endl;
+  std::cout << "Message Flags: " << flags << " ID: " << std::hex << idFrom
+            << " to " << idTo << " added to filter list. " << std::endl;
 }
 
 // Add filters from a predefined list (array)
 void CANReceive::addMsgFiltersList() {
-  // Filter 1: Accept only messages with ID 0x200
-  // filters[0].id_from = 0x200;
-  // filters[0].id_to = 0x200;
-  // filters[0].msg_flags = PCANFD_MSG_STD; // Standard format
-
-  // // Filter 2: Accept messages between 0x200 and 0x2FF
-  // filters[1].id_from = 0x200;
-  // filters[1].id_to = 0x2FF;
-  // filters[1].msg_flags = PCANFD_MSG_STD;
 
   int statusMsgFilters =
       pcanfd_add_filters_list(m_fd, m_filters.size(), m_filters.data());
   if (statusMsgFilters < 0) {
     perror("pcanfd_add_filters_list");
   } else {
-    std::cout << "Message filter list can added succesfully" << std::endl;
+    // std::cout << "Message filter list can added succesfully" << std::endl;
   }
 }
 
@@ -143,6 +132,36 @@ void CANReceive::deleteAllFilters() {
   } else {
     m_filters.clear();
     std::cout << "All filters are deleted successfully" << std::endl;
+  }
+}
+
+void CANReceive::getFilterList() {
+  int i = 0;
+  std::string msgFltr;
+  if (m_filters.size() != 0) {
+
+    for (auto &el : m_filters) {
+      if (el.msg_flags ==  PCANFD_MSG_STD) {
+        msgFltr = "STD";
+      } else if (el.msg_flags == PCANFD_MSG_RTR) {
+        msgFltr = "RTR";
+      } else if (el.msg_flags == PCANFD_MSG_EXT) {
+        msgFltr = "EXT";
+      } else if (el.msg_flags == PCANFD_MSG_SLF) {
+        msgFltr = "SLF";
+      } else if (el.msg_flags == PCANFD_MSG_SNG) {
+        msgFltr = "SNG";
+      } else if (el.msg_flags == PCANFD_MSG_ECHO) {
+        msgFltr = "ECHO";
+      } else {
+      }
+
+      std::cout << "Filter " << i + 1 << ": "
+                << "Message Flag: " << msgFltr << " ID: " << std::hex
+                << el.id_from << " to " << el.id_to << std::endl;
+    }
+  } else {
+    std::cout << "There is no message filter added!";
   }
 }
 

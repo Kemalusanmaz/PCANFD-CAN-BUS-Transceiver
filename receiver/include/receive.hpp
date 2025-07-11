@@ -31,6 +31,9 @@ public:
    * @brief Deletes all existing CAN message filters.
    */
   void deleteAllFilters();
+
+  void getFilterList();
+
   /**
    * @brief Receives a single CAN message and stores it.
    */

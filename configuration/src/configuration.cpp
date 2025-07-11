@@ -16,7 +16,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h> // close()
 
-CANConfiguraton::CANConfiguraton() {jsonParser();}
+CANConfiguraton::CANConfiguraton() { jsonParser(); }
 // Parses JSON config file and loads it into jsonData
 void CANConfiguraton::jsonParser() {
   std::filesystem::path jsonPath = "canConfig.json";
@@ -129,9 +129,12 @@ void CANConfiguraton::getCanConfig() {
     std::cout << "CAN FD initial parameters are read successfully!"
               << std::endl;
   }
-  std::cout << "clock_Hz: " << initConfig.clock_Hz << std::endl;
-  std::cout << "nominal bitrate: " << initConfig.nominal.bitrate << std::endl;
-  std::cout << "data bitrate: " << initConfig.data.bitrate << std::endl;
+  std::cout << "clock_Hz: " << static_cast<int>(initConfig.clock_Hz)
+            << std::endl;
+  std::cout << "nominal bitrate: "
+            << static_cast<int>(initConfig.nominal.bitrate) << std::endl;
+  std::cout << "data bitrate: " << static_cast<int>(initConfig.data.bitrate)
+            << std::endl;
   std::cout << "flag: " << initConfig.flags << std::endl;
 }
 
@@ -283,7 +286,7 @@ void CANConfiguraton::getDeviceId() {
   int ret =
       pcanfd_get_option(fd, PCANFD_OPT_DEVICE_ID, &deviceId, sizeof(deviceId));
   checkError(ret, "PCANFD_OPT_DEVICE_ID can not read.");
-  std::cout << "Delay Time between frames (μs): " << deviceId << std::endl;
+  std::cout << "Device Id: " << deviceId << std::endl;
 }
 
 void CANConfiguraton::getAcceptanceFilter() {
@@ -315,7 +318,7 @@ void CANConfiguraton::getTimeStampMode() {
   int ret = pcanfd_get_option(fd, PCANFD_OPT_HWTIMESTAMP_MODE, &hwTimestampMode,
                               sizeof(hwTimestampMode));
   checkError(ret, "PCANFD_OPT_HWTIMESTAMP_MODE can not read.");
-  std::cout << "Time Stamp Mpde: ";
+  std::cout << "Time Stamp Mode: ";
   switch (hwTimestampMode) {
   case PCANFD_OPT_HWTIMESTAMP_OFF:
     std::cout << "Based On Host Time (Hardware is off)\n";
@@ -394,16 +397,6 @@ void CANConfiguraton::setDeviceId(uint32_t deviceId) {
   std::cout << "Device Id set to: " << deviceId << std::endl;
 }
 
-// Blink the CAN device LED for visual identification (value = duration in
-// milliseconds)
-void CANConfiguraton::setFlashLed(uint32_t durationMs) {
-  int ret = pcanfd_set_option(fd, PCANFD_OPT_FLASH_LED, &durationMs,
-                              sizeof(durationMs));
-  checkError(ret, "Failed to flash LED");
-  std::cout << "Flash LED set to: " << durationMs << "milliseconds"
-            << std::endl;
-}
-
 // Set allowed message types
 void CANConfiguraton::setAllowedMsgs(std::string flag) {
   // PCANFD_ALLOWED_MSG_- CAN Standard CAN messages only
@@ -473,6 +466,21 @@ void CANConfiguraton::setHwTimestampMode(std::string flag) {
   // 5 = PCANFD_OPT_HWTIMESTAMP_SOF_COOKED - SOF + cooked HW offset
   // 6 = PCANFD_OPT_HWTIMESTAMP_SOF_RAW -  SOF + raw timestamp
 
+  // if (flag == "OFF") {
+  //   newFilter.msg_flag = PCANFD_MSG_STD;
+  // } else if (flag == "RTR") {
+  //   newFilter.msg_flags = PCANFD_MSG_RTR;
+  // } else if (flag == "EXT") {
+  //   newFilter.msg_flags = PCANFD_MSG_EXT;
+  // } else if (flag == "SLF") {
+  //   newFilter.msg_flags = PCANFD_MSG_SLF;
+  // } else if (flag == "SNG") {
+  //   newFilter.msg_flags = PCANFD_MSG_SNG;
+  // } else if (flag == "ECHO") {
+  //   newFilter.msg_flags = PCANFD_MSG_ECHO;
+  // } else {
+  // }
+
   const uint32_t modes[] = {
       PCANFD_OPT_HWTIMESTAMP_OFF,    PCANFD_OPT_HWTIMESTAMP_ON,
       PCANFD_OPT_HWTIMESTAMP_COOKED, PCANFD_OPT_HWTIMESTAMP_RAW,
@@ -497,17 +505,19 @@ void CANConfiguraton::setHwTimestampMode(std::string flag) {
 void CANConfiguraton::setMassStorageMode(std::string flag) {
   // 0 = Disable
   // 1 = Enable
-  std::string flagValue;
-  int index = std::stoi(flag);
+
+  int index;
+  if (flag == "Disable") {
+    index = 0;
+  } else if (flag == "Enable") {
+    index = 1;
+  }
+
   int ret = pcanfd_set_option(fd, PCANFD_OPT_MASS_STORAGE_MODE, &index,
                               sizeof(index));
   checkError(ret, "Failed to set Mass Storage Device mode");
-  if (flag == "0") {
-    flagValue = "Disable";
-  } else if (flag == "1") {
-    flagValue = "Enable";
-  }
-  std::cout << "Mass Storage Device mode set to: " << index << std::endl;
+
+  std::cout << "Mass Storage Device mode set to: " << flag << std::endl;
 }
 
 // Set the clock reference used by the driver (typically internal or external
@@ -522,18 +532,19 @@ void CANConfiguraton::setDrvClockRef(uint32_t clkRef) {
 // Set different linger modes controlling how long the driver waits before
 // closing
 void CANConfiguraton::setLinger(std::string lingerValue) {
-  const int modes[] = {PCANFD_OPT_LINGER_NOWAIT, PCANFD_OPT_LINGER_AUTO};
+  uint32_t mode;
 
-  int index = std::stoi(lingerValue);
-  if (index >= 0 &&
-      index < static_cast<int>(sizeof(modes) / sizeof(modes[0]))) {
-    uint32_t mode = modes[index];
-    int ret =
-        pcanfd_set_option(fd, PCANFD_OPT_HWTIMESTAMP_MODE, &mode, sizeof(mode));
-
-    checkError(ret, "Failed to set linger option");
-    std::cout << "Set linger to value: " << mode << std::endl;
+  if (lingerValue == "NOWAIT") {
+    mode = PCANFD_OPT_LINGER_NOWAIT;
+  } else if (lingerValue == "AUTO") {
+    mode = PCANFD_OPT_LINGER_AUTO;
   }
+
+  int ret =
+      pcanfd_set_option(fd, PCANFD_OPT_HWTIMESTAMP_MODE, &mode, sizeof(mode));
+
+  checkError(ret, "Failed to set linger option");
+  std::cout << "Set linger to value: " << mode << std::endl;
 }
 
 // Enable or disable whether the controller acknowledges its own messages on the
@@ -541,32 +552,34 @@ void CANConfiguraton::setLinger(std::string lingerValue) {
 void CANConfiguraton::setSelfAck(std::string enable) {
   // 0 = Disable
   // 1 = Enable
-  std::string flagValue;
-  int index = std::stoi(enable);
+  int index;
+  if (enable == "Disable") {
+    index = 0;
+  } else if (enable == "Enable") {
+    index = 1;
+  }
+
   int ret = pcanfd_set_option(fd, PCANFD_OPT_SELF_ACK, &index, sizeof(index));
   checkError(ret, "Failed to toggle self ACK");
-  if (enable == "0") {
-    flagValue = "Disable";
-  } else if (enable == "1") {
-    flagValue = "Enable";
-  }
-  std::cout << "Self ACK set to: " << index << std::endl;
+
+  std::cout << "Self ACK set to: " << enable << std::endl;
 }
 
 // Configure whether to ignore CAN FD frames with BRS (Bit Rate Switch) flag
 void CANConfiguraton::setBRSIgnore(std::string enable) {
   // 0 = Disable
   // 1 = Enable
-  std::string flagValue;
-  int index = std::stoi(enable);
+  int index;
+  if (enable == "Disable") {
+    index = 0;
+  } else if (enable == "Enable") {
+    index = 1;
+  }
+
   int ret = pcanfd_set_option(fd, PCANFD_OPT_BRS_IGNORE, &index, sizeof(index));
   checkError(ret, "Failed to toggle BRS ignore");
-  if (enable == "0") {
-    flagValue = "Disable";
-  } else if (enable == "1") {
-    flagValue = "Enable";
-  }
-  std::cout << "BRS Ignore set to: " << index << std::endl;
+
+  std::cout << "BRS Ignore set to: " << enable << std::endl;
 }
 
 void CANConfiguraton::isCanFdCapable() {

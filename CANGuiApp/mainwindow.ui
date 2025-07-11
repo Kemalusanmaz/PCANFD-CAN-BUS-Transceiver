@@ -22,7 +22,7 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>1311</width>
+      <width>1321</width>
       <height>611</height>
      </rect>
     </property>
@@ -30,7 +30,7 @@
      <string notr="true">background-color: lightgrey;</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -210,7 +210,7 @@
        <rect>
         <x>0</x>
         <y>10</y>
-        <width>1001</width>
+        <width>996</width>
         <height>461</height>
        </rect>
       </property>
@@ -230,9 +230,9 @@
      <widget class="QPushButton" name="receiver_addFilter">
       <property name="geometry">
        <rect>
-        <x>1058</x>
+        <x>1000</x>
         <y>240</y>
-        <width>101</width>
+        <width>80</width>
         <height>26</height>
        </rect>
       </property>
@@ -243,9 +243,9 @@
      <widget class="QTextEdit" name="receive_idFrom">
       <property name="geometry">
        <rect>
-        <x>1105</x>
+        <x>1108</x>
         <y>200</y>
-        <width>91</width>
+        <width>96</width>
         <height>31</height>
        </rect>
       </property>
@@ -256,9 +256,9 @@
      <widget class="QTextEdit" name="receive_idTo">
       <property name="geometry">
        <rect>
-        <x>1203</x>
+        <x>1214</x>
         <y>200</y>
-        <width>91</width>
+        <width>96</width>
         <height>31</height>
        </rect>
       </property>
@@ -269,7 +269,7 @@
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>1115</x>
+        <x>1128</x>
         <y>183</y>
         <width>60</width>
         <height>18</height>
@@ -282,7 +282,7 @@
      <widget class="QLabel" name="label_3">
       <property name="geometry">
        <rect>
-        <x>1220</x>
+        <x>1240</x>
         <y>183</y>
         <width>41</width>
         <height>18</height>
@@ -334,9 +334,9 @@
      <widget class="QComboBox" name="receive_flags">
       <property name="geometry">
        <rect>
-        <x>1010</x>
+        <x>1001</x>
         <y>202</y>
-        <width>93</width>
+        <width>96</width>
         <height>26</height>
        </rect>
       </property>
@@ -395,7 +395,7 @@
      <widget class="QPushButton" name="receiver_deleteAllFilters">
       <property name="geometry">
        <rect>
-        <x>1165</x>
+        <x>1081</x>
         <y>240</y>
         <width>130</width>
         <height>26</height>
@@ -403,6 +403,19 @@
       </property>
       <property name="text">
        <string>Delete All Filters</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="receiver_showFilters">
+      <property name="geometry">
+       <rect>
+        <x>1212</x>
+        <y>240</y>
+        <width>100</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Show Filters</string>
       </property>
      </widget>
     </widget>
@@ -1454,6 +1467,649 @@
       </property>
       <property name="centerOnScroll">
        <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_3">
+     <attribute name="title">
+      <string>Bus Features</string>
+     </attribute>
+     <widget class="QPlainTextEdit" name="busFeatures_logDisplay">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>661</width>
+        <height>551</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="plainText">
+       <string/>
+      </property>
+      <property name="centerOnScroll">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_busState">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>50</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Bus State</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_getDeviceId">
+      <property name="geometry">
+       <rect>
+        <x>903</x>
+        <y>410</y>
+        <width>110</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Get Device ID</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_setDeviceId">
+      <property name="geometry">
+       <rect>
+        <x>788</x>
+        <y>410</y>
+        <width>110</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Set Device ID</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_getBitTimingRanges">
+      <property name="geometry">
+       <rect>
+        <x>1040</x>
+        <y>50</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Bit Timing Ranges</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_getAcceptanceFilter">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>80</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Acceptance Filter</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="busFeatures_deviceId">
+      <property name="geometry">
+       <rect>
+        <x>675</x>
+        <y>410</y>
+        <width>110</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="busFeatures_transmission">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>20</y>
+        <width>110</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Transmitter</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Receiver</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_getChannelFeatures">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>50</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Channel Features</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_getAcceptanceFilter_">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>80</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Frame Delay Time</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_getTimestampMode">
+      <property name="geometry">
+       <rect>
+        <x>950</x>
+        <y>200</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Get Timestamp Mode</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_getDriverVersion">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>110</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Driver Version</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_getFirmwareVersion">
+      <property name="geometry">
+       <rect>
+        <x>860</x>
+        <y>110</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Firmware Version</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_getInputOutputInfo">
+      <property name="geometry">
+       <rect>
+        <x>1040</x>
+        <y>80</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Input/Output Info</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_setAllowedMessageType">
+      <property name="geometry">
+       <rect>
+        <x>777</x>
+        <y>230</y>
+        <width>180</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Allowed Message Type</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="busFeatures_iFrameDelay">
+      <property name="geometry">
+       <rect>
+        <x>675</x>
+        <y>470</y>
+        <width>110</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_setIFrameDelay">
+      <property name="geometry">
+       <rect>
+        <x>788</x>
+        <y>470</y>
+        <width>110</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>IFrame Delay</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="busFeatures_allowedMessageType">
+      <property name="geometry">
+       <rect>
+        <x>677</x>
+        <y>230</y>
+        <width>96</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>STD</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>RTR</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>EXT</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ERROR</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>STATUS</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_setTimestampMode">
+      <property name="geometry">
+       <rect>
+        <x>777</x>
+        <y>200</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Set Timestamp Mode</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="busFeatures_timestampMode">
+      <property name="geometry">
+       <rect>
+        <x>677</x>
+        <y>200</y>
+        <width>96</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>OFF</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ON</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>COOKED</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>RAW</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>SOF ON</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>SOF COOKED</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>SOF RAW</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_setMassStorageMode">
+      <property name="geometry">
+       <rect>
+        <x>777</x>
+        <y>290</y>
+        <width>180</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Set Mass Storage Mode</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="busFeatures_massStorageMode">
+      <property name="geometry">
+       <rect>
+        <x>677</x>
+        <y>290</y>
+        <width>96</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Disable</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Enable</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLineEdit" name="busFeatures_driverClockRefTime">
+      <property name="geometry">
+       <rect>
+        <x>675</x>
+        <y>440</y>
+        <width>110</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_setDriverClockRefTime">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>440</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Driver Clock Ref Time</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_setLingerMode">
+      <property name="geometry">
+       <rect>
+        <x>777</x>
+        <y>320</y>
+        <width>130</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Set Linger Mode</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="busFeatures_lingerMode">
+      <property name="geometry">
+       <rect>
+        <x>677</x>
+        <y>320</y>
+        <width>96</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Disable</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Enable</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QComboBox" name="busFeatures_selfAck">
+      <property name="geometry">
+       <rect>
+        <x>677</x>
+        <y>350</y>
+        <width>96</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Disable</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Enable</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_setSelfAck">
+      <property name="geometry">
+       <rect>
+        <x>777</x>
+        <y>350</y>
+        <width>100</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Set Self-Ack</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="busFeatures_BRSIgnore">
+      <property name="geometry">
+       <rect>
+        <x>677</x>
+        <y>260</y>
+        <width>96</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Disable</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Enable</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_setBRSIgnore">
+      <property name="geometry">
+       <rect>
+        <x>777</x>
+        <y>260</y>
+        <width>200</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Set Bit Rate Switch Ignore</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_getHWDeviceNumber">
+      <property name="geometry">
+       <rect>
+        <x>984</x>
+        <y>380</y>
+        <width>190</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Get HW Device Number</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_getSerialNumber">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>140</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Serial Number</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_setHWDeviceNumber">
+      <property name="geometry">
+       <rect>
+        <x>789</x>
+        <y>380</y>
+        <width>190</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Set HW Device Number</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="busFeatures_hwDeviceNumber">
+      <property name="geometry">
+       <rect>
+        <x>675</x>
+        <y>380</y>
+        <width>110</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;</string>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_getAdapterName">
+      <property name="geometry">
+       <rect>
+        <x>1040</x>
+        <y>110</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Adapter Name</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="busFeatures_getPartNumber">
+      <property name="geometry">
+       <rect>
+        <x>950</x>
+        <y>140</y>
+        <width>170</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Part Number</string>
       </property>
      </widget>
     </widget>

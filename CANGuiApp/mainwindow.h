@@ -31,18 +31,45 @@ private slots: // Functions that capture events write these blocks as slot funct
     void on_receiver_receiveMessages_clicked();
     void on_receiver_addFilter_clicked();
     void on_receiver_deleteAllFilters_clicked();
+    void on_receiver_showFilters_clicked();
     void checkForCanMessages(); // Zamanlayıcının tetikleyeceği yeni slot
 
     void on_transmitter_start_clicked(); // on and clicked is a signal name
     void on_transmitter_stop_clicked();
 
-     // İçerik değiştiğinde veri toplama ve doğrulama için
+    // İçerik değiştiğinde veri toplama ve doğrulama için
     void on_transmitter_data_cellChanged(int row, int column);
     void on_transmitter_send_clicked();
     void on_transmitter_setDeviceConfiguration_clicked();
     void on_transmitter_getDeviceConfiguration_clicked();
     void on_transmitter_flags_currentIndexChanged(int index);
     void on_transmitter_messageType_currentIndexChanged(int index);
+
+    void on_busFeatures_busState_clicked();
+    void on_busFeatures_getDeviceId_clicked();
+    void on_busFeatures_setDeviceId_clicked();
+    void on_busFeatures_getBitTimingRanges_clicked();
+    void on_busFeatures_getChannelFeatures_clicked();
+    void on_busFeatures_getAcceptanceFilter_clicked();
+    void on_busFeatures_getFrameDelayTime_clicked();
+    void on_busFeatures_getTimestampMode_clicked();
+    void on_busFeatures_setTimestampMode_clicked();
+    void on_busFeatures_getDriverVersion_clicked();
+    void on_busFeatures_getFirmwareVersion_clicked();
+    void on_busFeatures_getInputOutputInfo_clicked();
+    void on_busFeatures_setAllowedMessageType_clicked();
+    void on_busFeatures_setIFrameDelay_clicked();
+    void on_busFeatures_setMassStorageMode_clicked();
+    void on_busFeatures_setDriverClockRefTime_clicked();
+    void on_busFeatures_setLingerMode_clicked();
+    void on_busFeatures_setSelfAck_clicked();
+    void on_busFeatures_setBRSIgnore_clicked();
+    void on_busFeatures_getSerialNumber_clicked();
+    void on_busFeatures_getHWDeviceNumber_clicked();
+    void on_busFeatures_setHWDeviceNumber_clicked();
+    void on_busFeatures_getAdapterName_clicked();
+    void on_busFeatures_getPartNumber_clicked();
+
 
 private:
     Ui::MainWindow *ui;

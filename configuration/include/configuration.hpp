@@ -110,11 +110,6 @@ public:
    */
   void setDeviceId(uint32_t deviceId);
   /**
-   * @brief Sets the duration for the device's flash LED in milliseconds.
-   * @param durationMs Duration in milliseconds.
-   */
-  void setFlashLed(uint32_t durationMs);
-  /**
    * @brief Sets the allowed message types for transmission/reception.
    * @param flag Comma-separated string of allowed message flags.
    */
