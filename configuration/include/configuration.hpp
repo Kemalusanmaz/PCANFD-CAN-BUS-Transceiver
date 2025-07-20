@@ -101,10 +101,6 @@ public:
    */
   void getFirmwareVersion();
   /**
-   * @brief Retrieves and prints miscellaneous IO information.
-   */
-  void getIoInfo();
-  /**
    * @brief Sets a user-defined device ID for the CAN device.
    * @param deviceId New device ID to be set.
    */
@@ -130,22 +126,12 @@ public:
    * @brief Sets the inter-frame delay time in microseconds.
    * @param delayUs Delay time in microseconds.
    */
-  void setIFrameDelay(uint32_t delayUs);
+  void setFrameDelayTime(uint32_t delayUs);
   /**
    * @brief Sets the hardware timestamp mode.
    * @param flag String representing the selected timestamp mode.
    */
   void setHwTimestampMode(std::string flag);
-  /**
-   * @brief Enables or disables mass storage mode.
-   * @param flag "0" to disable, "1" to enable.
-   */
-  void setMassStorageMode(std::string flag);
-  /**
-   * @brief Sets the driver's clock reference time in microseconds.
-   * @param clkRef Clock reference time in microseconds.
-   */
-  void setDrvClockRef(uint32_t clkRef);
   /**
    * @brief Sets the linger mode (wait behavior for closing).
    * @param lingerValue Linger option as a string ("0" or "1").
@@ -190,6 +176,14 @@ public:
    * @brief Retrieves and prints the part number of the CAN device.
    */
   void getPartNumber();
+
+  void getDriverClockReference();
+
+  void getLinger();
+
+  void getSelfAck();
+
+  void getBRSIgnore();
 
 private:
   
