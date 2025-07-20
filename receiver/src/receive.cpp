@@ -109,7 +109,8 @@ void CANReceive::addFilter(std::string idFrom, std::string idTo,
 
   m_filters.push_back(newFilter);
   std::cout << "Message Flags: " << flags << " ID: " << std::hex << idFrom
-            << " to " << idTo << " added to filter list. " << std::endl;
+            << " to " << idTo << std::dec << " added to filter list. "
+            << std::endl;
 }
 
 // Add filters from a predefined list (array)
@@ -141,7 +142,7 @@ void CANReceive::getFilterList() {
   if (m_filters.size() != 0) {
 
     for (auto &el : m_filters) {
-      if (el.msg_flags ==  PCANFD_MSG_STD) {
+      if (el.msg_flags == PCANFD_MSG_STD) {
         msgFltr = "STD";
       } else if (el.msg_flags == PCANFD_MSG_RTR) {
         msgFltr = "RTR";
@@ -156,9 +157,9 @@ void CANReceive::getFilterList() {
       } else {
       }
 
-      std::cout << "Filter " << i + 1 << ": "
-                << "Message Flag: " << msgFltr << " ID: " << std::hex
-                << el.id_from << " to " << el.id_to << std::endl;
+      std::cout << "Filter " << i + 1 << ": " << "Message Flag: " << msgFltr
+                << " ID: " << std::hex << el.id_from << " to " << el.id_to
+                << std::endl;
     }
   } else {
     std::cout << "There is no message filter added!";

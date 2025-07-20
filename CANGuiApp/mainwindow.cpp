@@ -311,65 +311,63 @@ void MainWindow::on_transmitter_data_cellChanged(int row, int column)
     QTableWidgetItem* currentItem = ui->transmitter_data->item(row, column);
     if (!currentItem) return;
 
-    // Sinyal döngüsünü engellemek için sinyalleri geçici olarak kapat
+    // closed signals temporary to block signal cycle.
     ui->transmitter_data->blockSignals(true);
 
     QString originalText = currentItem->text();
     QString formattedText = originalText.toUpper().trimmed();
 
-    // 1. Kullanıcı hücreyi tamamen sildiyse veya sadece boşluk varsa
+    // If user delete a cell or there is just a blank
     if (formattedText.isEmpty()) {
-        // Hücreyi varsayılan "boş" durumuna getir
+        // Cell is made as blank.
         currentItem->setText("-");
     }
-    // 2. Eğer geçerli bir hex girişi varsa
+    // If there is a hex
     else {
-        QRegularExpression hexMatcher("^[0-9A-F]{1,2}$");
+        QRegularExpression hexMatcher("^[0-9A-F]{1,2}$"); //Create expression for Hex digits
         if (hexMatcher.match(formattedText).hasMatch()) {
-            // Eğer tek karakter girildiyse, başına '0' ekle
+            // If only single char is entered. Add 0 in front of the char
             if (formattedText.length() == 1) {
                 formattedText = "0" + formattedText;
             }
-            // Hücreye formatlanmış metni geri yaz (büyük harf vb.)
+            // Write formatted text in the cell
             currentItem->setText(formattedText);
         }
-        // 3. Eğer giriş geçersizse (ne boş ne de geçerli hex)
+        // If the input is invalid (neither empty nor valid hex)
         else {
-            // Hatalı girişi geri al ve kullanıcıyı uyar
-            // Hatalı giriş öncesi hücrenin durumuna geri dönmek zor olabilir.
-            // En basit çözüm, onu 'boş' durumuna getirmektir.
+            // revert the cell as - char.
             currentItem->setText("-");
         }
     }
 
-    // Her durumda, değişiklikten sonra veri string'ini yeniden oluştur.
+    // Recreate the data string after the change
     updateConcatenatedHex();
 
-    // Sinyalleri tekrar aç
+    // open signals
     ui->transmitter_data->blockSignals(false);
 }
 
 void MainWindow::updateConcatenatedHex()
 {
     m_concatenatedHex.clear();
-    QStringList hexParts; // Geçerli hex değerlerini tutacak bir liste
+    QStringList hexParts; // A list to hold valid hex values
+    bool dataEnded = false; // Flag that marks the end of data
 
-    bool dataEnded = false; // Verinin bittiği yeri işaretleyen bayrak
     for (int row = 0; row < ui->transmitter_data->rowCount(); ++row) {
         for (int col = 0; col < ui->transmitter_data->columnCount(); ++col) {
             QTableWidgetItem* item = ui->transmitter_data->item(row, col);
 
-            // Eğer hücre boş değilse ve metin geçerli bir hex ise
+            // If the cell is not empty and the text is valid hexadecimal
             if (item && item->text() != "-") {
-                // Eğer daha önce veri bitmişse, bu bir "aradaki boşluk" hatasıdır.
+                // If the data ran out before then, it is a "gap" error.
                 if (dataEnded) {
-                    m_concatenatedHex.clear(); // Hatalı olduğu için string'i temizle
+                    m_concatenatedHex.clear(); // Clear string as it is incorrect
                     ui->transmitter_dataDisplay->setPlainText(m_concatenatedHex);
-                    return; // Fonksiyondan çık
+                    return;
                 }
                 hexParts.append(item->text());
             } else {
-                // Hücre boşsa veya "-" içeriyorsa, verinin burada bittiğini varsay.
+                // If the cell is blank or contains "-", assume the data ends there.
                 dataEnded = true;
             }
         }
@@ -379,14 +377,12 @@ void MainWindow::updateConcatenatedHex()
     ui->transmitter_dataDisplay->setPlainText(m_concatenatedHex);
 }
 
-// Bu fonksiyon tabloyu ilk haline getirir.
+// This function initializes the table.
 void MainWindow::setupHexTable()
 {
     ui->transmitter_data->blockSignals(true);
-    // ... (satır/sütun ayarlama kısmı aynı) ...
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
-            // Başlangıçta "-" veya boş bırakmak daha anlamlı
             QTableWidgetItem *item = new QTableWidgetItem("-");
             item->setTextAlignment(Qt::AlignCenter);
             ui->transmitter_data->setItem(row, col, item);
@@ -395,12 +391,12 @@ void MainWindow::setupHexTable()
     ui->transmitter_data->blockSignals(false);
 }
 
-// Bu fonksiyon hem tabloyu hem de veri değişkenlerini sıfırlar.
+// This function resets both the table and the data variables.
 void MainWindow::resetHexTable()
 {
     m_concatenatedHex.clear();
     ui->transmitter_dataDisplay->clear();
-    setupHexTable(); // Tabloyu ilk haline getirir
+    setupHexTable(); // Initializes the table
 }
 
 void MainWindow::on_transmitter_send_clicked()
@@ -417,17 +413,13 @@ void MainWindow::on_transmitter_send_clicked()
 
     std::string flags = ui->transmitter_flags->currentText().toStdString();
 
-    // 1. Gönderilecek verinin boş olup olmadığını kontrol et.
+    // Check if the data to be sent is empty.
     if (m_concatenatedHex.isEmpty()) {
         return;
     }
 
-    // 2. VERİYİ GÖNDERME İŞLEMİ
-    // Burada, m_concatenatedHex string'ini alıp
-    // m_transmitter nesnenizin sendMessage fonksiyonuna gönderirsiniz.
-    // m_concatenatedHex "AA BB CC" formatında olduğu için önce boşlukları temizlemeniz gerekebilir.
+    // Data sending process
     m_concatenatedHex = m_concatenatedHex.remove(' ');
-    // dataToSend.remove(' '); // Boşlukları kaldır -> "AABBCC"
 
     QString output = captureStdOut([&]() {
         m_transmit->sendMessage(messageTypeInt, id, flags,
@@ -443,27 +435,25 @@ void MainWindow::on_transmitter_send_clicked()
 
 void MainWindow::on_transmitter_flags_currentIndexChanged(int index)
 {
-    // Seçili metni al
+    // Get selected text
     QString selectedFlag = ui->transmitter_flags->itemText(index);
 
     if (selectedFlag == "EXT") {
         // --- 29-bit (0 - 1FFFFFFF) ---
-        // Düzenli ifade: 1 ile 8 arasında hexadecimal karakter.
-        // 1FFFFFFF -> 8 karakter.
+        // Regular expression: 1 to 8 hexadecimal characters.
+        // 1FFFFFFF -> 8 characters.
         QRegularExpression rx29bit("^(0[xX])?[0-9a-fA-F]{1,8}$");
 
-        // Validator'ın düzenli ifadesini güncelle.
+        // Update the Validator's regular expression.
         m_hexIdValidator->setRegularExpression(rx29bit);
     } else {
         // --- 11-bit (0 - 7FF) ---
-        // Düzenli ifade: 1 ile 3 arasında hexadecimal karakter.
+        // Regular expression: 1 to 3 hexadecimal characters.
         QRegularExpression rx11bit("^(0[xX])?[0-9a-fA-F]{1,3}$");
 
-        // Validator'ın düzenli ifadesini güncelle.
+        // Update the Validator's regular expression.
         m_hexIdValidator->setRegularExpression(rx11bit);
     }
-    // Kullanıcı önceden geçersiz bir değer girmiş olabileceğinden,
-    // QLineEdit'ın içeriğini temizlemek iyi bir fikirdir.
     ui->transmitter_id->clear();
 }
 
@@ -482,18 +472,15 @@ void MainWindow::on_transmitter_messageType_currentIndexChanged(int index)
             int cellIndex = row * 8 + col;
 
             if (cellIndex < editableCellCount) {
-                // Bu hücre kullanılabilir olmalı
                 item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
                 item->setBackground(QBrush(Qt::white));
             } else {
-                // Bu hücre kullanılamaz olmalı
-                item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled); // Düzenlenemez
+                item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
                 item->setBackground(QBrush(Qt::lightGray));
             }
         }
     }
 
-    // Değişiklik sonrası veri string'ini yeniden hesapla ve imleci başa al
     updateConcatenatedHex();
     ui->transmitter_data->setCurrentCell(0, 0);
 
@@ -507,7 +494,6 @@ void MainWindow::on_busFeatures_busState_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->getCanState();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -519,7 +505,6 @@ void MainWindow::on_busFeatures_busState_clicked()
             QString output = captureStdOut([&]() {
                 m_configTransmit->getCanState();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -534,19 +519,15 @@ void MainWindow::on_busFeatures_getDeviceId_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->getDeviceId();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
-
             QString output = captureStdOut([&]() {
                 m_configTransmit->getDeviceId();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -557,25 +538,20 @@ void MainWindow::on_busFeatures_getDeviceId_clicked()
 void MainWindow::on_busFeatures_setDeviceId_clicked()
 {
     uint32_t deviceId = ui->busFeatures_deviceId->text().toInt(nullptr,16);
-
     if(ui->busFeatures_transmission->currentText().toStdString() == "Receiver"){
         if(m_receive) {
             QString output = captureStdOut([&]() {
                 m_configReceive->setDeviceId(deviceId);
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
-
             QString output = captureStdOut([&]() {
                 m_configTransmit->setDeviceId(deviceId);
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -591,19 +567,15 @@ void MainWindow::on_busFeatures_getBitTimingRanges_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->getBitTimingRanges();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
-
             QString output = captureStdOut([&]() {
                 m_configTransmit->getBitTimingRanges();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -618,19 +590,15 @@ void MainWindow::on_busFeatures_getChannelFeatures_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->getChannelFeatures();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
-
             QString output = captureStdOut([&]() {
                 m_configTransmit->getChannelFeatures();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -645,7 +613,6 @@ void MainWindow::on_busFeatures_getAcceptanceFilter_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->getAcceptanceFilter();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -653,11 +620,9 @@ void MainWindow::on_busFeatures_getAcceptanceFilter_clicked()
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
-
             QString output = captureStdOut([&]() {
                 m_configTransmit->getAcceptanceFilter();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -672,11 +637,9 @@ void MainWindow::on_busFeatures_getFrameDelayTime_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->getFrameDelayTime();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
@@ -684,7 +647,6 @@ void MainWindow::on_busFeatures_getFrameDelayTime_clicked()
             QString output = captureStdOut([&]() {
                 m_configTransmit->getFrameDelayTime();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -699,11 +661,9 @@ void MainWindow::on_busFeatures_getTimestampMode_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->getTimeStampMode();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
@@ -711,7 +671,6 @@ void MainWindow::on_busFeatures_getTimestampMode_clicked()
             QString output = captureStdOut([&]() {
                 m_configTransmit->getTimeStampMode();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -722,25 +681,20 @@ void MainWindow::on_busFeatures_getTimestampMode_clicked()
 void MainWindow::on_busFeatures_setTimestampMode_clicked()
 {
     std::string tsMode = ui->busFeatures_timestampMode->currentText().toStdString();
-
     if(ui->busFeatures_transmission->currentText().toStdString() == "Receiver"){
         if(m_receive) {
             QString output = captureStdOut([&]() {
                 m_configReceive->setHwTimestampMode(tsMode);
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
-
             QString output = captureStdOut([&]() {
                 m_configTransmit->setHwTimestampMode(tsMode);
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -755,11 +709,9 @@ void MainWindow::on_busFeatures_getDriverVersion_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->getDriverVersion();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
@@ -767,7 +719,6 @@ void MainWindow::on_busFeatures_getDriverVersion_clicked()
             QString output = captureStdOut([&]() {
                 m_configTransmit->getDriverVersion();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -782,46 +733,15 @@ void MainWindow::on_busFeatures_getFirmwareVersion_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->getFirmwareVersion();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
-
             QString output = captureStdOut([&]() {
                 m_configTransmit->getFirmwareVersion();
             });
-
-            if (!output.isEmpty()) {
-                ui->busFeatures_logDisplay->appendPlainText(output);
-            }
-        }
-    }
-}
-
-void MainWindow::on_busFeatures_getInputOutputInfo_clicked()
-{
-    if(ui->busFeatures_transmission->currentText().toStdString() == "Receiver"){
-        if(m_receive) {
-            QString output = captureStdOut([&]() {
-                m_configReceive->getIoInfo();
-            });
-
-            if (!output.isEmpty()) {
-                ui->busFeatures_logDisplay->appendPlainText(output);
-            }
-
-        }
-    }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
-        if(m_transmit) {
-
-            QString output = captureStdOut([&]() {
-                m_configTransmit->getIoInfo();
-            });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -838,19 +758,15 @@ void MainWindow::on_busFeatures_setAllowedMessageType_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->setAllowedMsgs(msgType);
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
-
             QString output = captureStdOut([&]() {
                 m_configTransmit->setAllowedMsgs(msgType);
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -858,93 +774,29 @@ void MainWindow::on_busFeatures_setAllowedMessageType_clicked()
     }
 }
 
-void MainWindow::on_busFeatures_setIFrameDelay_clicked()
+void MainWindow::on_busFeatures_setFrameDelayTime_clicked()
 {
-    uint32_t iFrameDelay = ui->busFeatures_iFrameDelay->text().toInt(nullptr,16);
-
+    uint32_t iFrameDelay = ui->busFeatures_frameDelayTime->text().toInt(nullptr,16);
     if(ui->busFeatures_transmission->currentText().toStdString() == "Receiver"){
         if(m_receive) {
             QString output = captureStdOut([&]() {
-                m_configReceive->setIFrameDelay(iFrameDelay);
+                m_configReceive->setFrameDelayTime(iFrameDelay);
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
-
             QString output = captureStdOut([&]() {
-                m_configTransmit->setIFrameDelay(iFrameDelay);
+                m_configTransmit->setFrameDelayTime(iFrameDelay);
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
         }
     }
-    ui->busFeatures_iFrameDelay->clear();
-}
-
-void MainWindow::on_busFeatures_setMassStorageMode_clicked()
-{
-    std::string msgType = ui->busFeatures_massStorageMode->currentText().toStdString();
-
-    if(ui->busFeatures_transmission->currentText().toStdString() == "Receiver"){
-        if(m_receive) {
-            QString output = captureStdOut([&]() {
-                m_configReceive->setMassStorageMode(msgType);
-            });
-
-            if (!output.isEmpty()) {
-                ui->busFeatures_logDisplay->appendPlainText(output);
-            }
-
-        }
-    }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
-        if(m_transmit) {
-
-            QString output = captureStdOut([&]() {
-                m_configTransmit->setMassStorageMode(msgType);
-            });
-
-            if (!output.isEmpty()) {
-                ui->busFeatures_logDisplay->appendPlainText(output);
-            }
-        }
-    }
-}
-
-void MainWindow::on_busFeatures_setDriverClockRefTime_clicked()
-{
-    uint32_t driverClockRefTime = ui->busFeatures_driverClockRefTime->text().toInt(nullptr,16);
-
-    if(ui->busFeatures_transmission->currentText().toStdString() == "Receiver"){
-        if(m_receive) {
-            QString output = captureStdOut([&]() {
-                m_configReceive->setDrvClockRef(driverClockRefTime);
-            });
-
-            if (!output.isEmpty()) {
-                ui->busFeatures_logDisplay->appendPlainText(output);
-            }
-
-        }
-    }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
-        if(m_transmit) {
-
-            QString output = captureStdOut([&]() {
-                m_configTransmit->setDrvClockRef(driverClockRefTime);
-            });
-
-            if (!output.isEmpty()) {
-                ui->busFeatures_logDisplay->appendPlainText(output);
-            }
-        }
-    }
-    ui->busFeatures_driverClockRefTime->clear();
+    ui->busFeatures_frameDelayTime->clear();
 }
 
 void MainWindow::on_busFeatures_setLingerMode_clicked()
@@ -956,19 +808,39 @@ void MainWindow::on_busFeatures_setLingerMode_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->setLinger(linger);
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
+        }
+    }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
+        if(m_transmit) {
+            QString output = captureStdOut([&]() {
+                m_configTransmit->setLinger(linger);
+            });
+            if (!output.isEmpty()) {
+                ui->busFeatures_logDisplay->appendPlainText(output);
+            }
+        }
+    }
+}
 
+void MainWindow::on_busFeatures_getLingerMode_clicked()
+{
+    if(ui->busFeatures_transmission->currentText().toStdString() == "Receiver"){
+        if(m_receive) {
+            QString output = captureStdOut([&]() {
+                m_configReceive->getLinger();
+            });
+            if (!output.isEmpty()) {
+                ui->busFeatures_logDisplay->appendPlainText(output);
+            }
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
 
             QString output = captureStdOut([&]() {
-                m_configTransmit->setLinger(linger);
+                m_configTransmit->getLinger();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -979,25 +851,44 @@ void MainWindow::on_busFeatures_setLingerMode_clicked()
 void MainWindow::on_busFeatures_setSelfAck_clicked()
 {
     std::string selfAck = ui->busFeatures_selfAck->currentText().toStdString();
-
     if(ui->busFeatures_transmission->currentText().toStdString() == "Receiver"){
         if(m_receive) {
             QString output = captureStdOut([&]() {
                 m_configReceive->setSelfAck(selfAck);
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
+        }
+    }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
+        if(m_transmit) {
+            QString output = captureStdOut([&]() {
+                m_configTransmit->setSelfAck(selfAck);
+            });
+            if (!output.isEmpty()) {
+                ui->busFeatures_logDisplay->appendPlainText(output);
+            }
+        }
+    }
+}
 
+void MainWindow::on_busFeatures_getSelfAck_clicked()
+{
+    if(ui->busFeatures_transmission->currentText().toStdString() == "Receiver"){
+        if(m_receive) {
+            QString output = captureStdOut([&]() {
+                m_configReceive->getSelfAck();
+            });
+            if (!output.isEmpty()) {
+                ui->busFeatures_logDisplay->appendPlainText(output);
+            }
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
 
             QString output = captureStdOut([&]() {
-                m_configTransmit->setSelfAck(selfAck);
+                m_configTransmit->getSelfAck();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -1008,25 +899,68 @@ void MainWindow::on_busFeatures_setSelfAck_clicked()
 void MainWindow::on_busFeatures_setBRSIgnore_clicked()
 {
     std::string brsIgnore = ui->busFeatures_BRSIgnore->currentText().toStdString();
-
     if(ui->busFeatures_transmission->currentText().toStdString() == "Receiver"){
         if(m_receive) {
             QString output = captureStdOut([&]() {
                 m_configReceive->setBRSIgnore(brsIgnore);
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
+        }
+    }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
+        if(m_transmit) {
+            QString output = captureStdOut([&]() {
+                m_configTransmit->setBRSIgnore(brsIgnore);
+            });
+            if (!output.isEmpty()) {
+                ui->busFeatures_logDisplay->appendPlainText(output);
+            }
+        }
+    }
+}
 
+void MainWindow::on_busFeatures_getBRSIgnore_clicked()
+{
+    if(ui->busFeatures_transmission->currentText().toStdString() == "Receiver"){
+        if(m_receive) {
+            QString output = captureStdOut([&]() {
+                m_configReceive->getBRSIgnore();
+            });
+            if (!output.isEmpty()) {
+                ui->busFeatures_logDisplay->appendPlainText(output);
+            }
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
 
             QString output = captureStdOut([&]() {
-                m_configTransmit->setBRSIgnore(brsIgnore);
+                m_configTransmit->getBRSIgnore();
             });
+            if (!output.isEmpty()) {
+                ui->busFeatures_logDisplay->appendPlainText(output);
+            }
+        }
+    }
+}
 
+void MainWindow::on_busFeatures_getDriverClockReference_clicked()
+{
+    if(ui->busFeatures_transmission->currentText().toStdString() == "Receiver"){
+        if(m_receive) {
+            QString output = captureStdOut([&]() {
+                m_configReceive->getDriverClockReference();
+            });
+            if (!output.isEmpty()) {
+                ui->busFeatures_logDisplay->appendPlainText(output);
+            }
+        }
+    }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
+        if(m_transmit) {
+
+            QString output = captureStdOut([&]() {
+                m_configTransmit->getDriverClockReference();
+            });
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -1041,11 +975,9 @@ void MainWindow::on_busFeatures_getSerialNumber_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->getSerialNumber();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
@@ -1053,7 +985,6 @@ void MainWindow::on_busFeatures_getSerialNumber_clicked()
             QString output = captureStdOut([&]() {
                 m_configTransmit->getSerialNumber();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -1068,19 +999,15 @@ void MainWindow::on_busFeatures_getHWDeviceNumber_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->getHCDeviceNumber();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
-
             QString output = captureStdOut([&]() {
                 m_configTransmit->getHCDeviceNumber();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -1091,25 +1018,20 @@ void MainWindow::on_busFeatures_getHWDeviceNumber_clicked()
 void MainWindow::on_busFeatures_setHWDeviceNumber_clicked()
 {
     uint8_t hwDeviceNumber = ui->busFeatures_hwDeviceNumber->text().toInt(nullptr,16);
-
     if(ui->busFeatures_transmission->currentText().toStdString() == "Receiver"){
         if(m_receive) {
             QString output = captureStdOut([&]() {
                 m_configReceive->setHCDeviceNumber(hwDeviceNumber);
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
-
             QString output = captureStdOut([&]() {
                 m_configTransmit->setHCDeviceNumber(hwDeviceNumber);
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -1125,11 +1047,9 @@ void MainWindow::on_busFeatures_getAdapterName_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->getAdapterName();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
@@ -1137,7 +1057,6 @@ void MainWindow::on_busFeatures_getAdapterName_clicked()
             QString output = captureStdOut([&]() {
                 m_configTransmit->getAdapterName();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
@@ -1152,11 +1071,9 @@ void MainWindow::on_busFeatures_getPartNumber_clicked()
             QString output = captureStdOut([&]() {
                 m_configReceive->getPartNumber();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
-
         }
     }else if(ui->busFeatures_transmission->currentText().toStdString() == "Transmitter"){
         if(m_transmit) {
@@ -1164,7 +1081,6 @@ void MainWindow::on_busFeatures_getPartNumber_clicked()
             QString output = captureStdOut([&]() {
                 m_configTransmit->getPartNumber();
             });
-
             if (!output.isEmpty()) {
                 ui->busFeatures_logDisplay->appendPlainText(output);
             }
