@@ -508,38 +508,28 @@ void CANConfiguraton::setHwTimestampMode(std::string flag) {
   // 5 = PCANFD_OPT_HWTIMESTAMP_SOF_COOKED - SOF + cooked HW offset
   // 6 = PCANFD_OPT_HWTIMESTAMP_SOF_RAW -  SOF + raw timestamp
 
-  // if (flag == "OFF") {
-  //   newFilter.msg_flag = PCANFD_MSG_STD;
-  // } else if (flag == "RTR") {
-  //   newFilter.msg_flags = PCANFD_MSG_RTR;
-  // } else if (flag == "EXT") {
-  //   newFilter.msg_flags = PCANFD_MSG_EXT;
-  // } else if (flag == "SLF") {
-  //   newFilter.msg_flags = PCANFD_MSG_SLF;
-  // } else if (flag == "SNG") {
-  //   newFilter.msg_flags = PCANFD_MSG_SNG;
-  // } else if (flag == "ECHO") {
-  //   newFilter.msg_flags = PCANFD_MSG_ECHO;
-  // } else {
-  // }
+  uint32_t mode;
 
-  const uint32_t modes[] = {
-      PCANFD_OPT_HWTIMESTAMP_OFF,    PCANFD_OPT_HWTIMESTAMP_ON,
-      PCANFD_OPT_HWTIMESTAMP_COOKED, PCANFD_OPT_HWTIMESTAMP_RAW,
-      PCANFD_OPT_HWTIMESTAMP_SOF_ON, PCANFD_OPT_HWTIMESTAMP_SOF_COOKED,
-      PCANFD_OPT_HWTIMESTAMP_SOF_RAW};
-
-  int index = std::stoi(flag);
-  if (index >= 0 &&
-      index < static_cast<int>(sizeof(modes) / sizeof(modes[0]))) {
-    uint32_t mode = modes[index];
-    int ret =
-        pcanfd_set_option(fd, PCANFD_OPT_HWTIMESTAMP_MODE, &mode, sizeof(mode));
-    checkError(ret, "Failed to set hardware timestamp mode");
-    std::cout << "Hardware timestamp mode set to index " << index << std::endl;
-  } else {
-    std::cerr << "Invalid timestamp mode index: " << index << std::endl;
+  if (flag == "OFF") {
+    mode = PCANFD_OPT_HWTIMESTAMP_OFF;
+  } else if (flag == "ON") {
+    mode = PCANFD_OPT_HWTIMESTAMP_ON;
+  } else if (flag == "COOKED") {
+    mode = PCANFD_OPT_HWTIMESTAMP_COOKED;
+  } else if (flag == "RAW") {
+    mode = PCANFD_OPT_HWTIMESTAMP_RAW;
+  } else if (flag == "SOF ON") {
+    mode = PCANFD_OPT_HWTIMESTAMP_SOF_ON;
+  } else if (flag == "SOF COOKED") {
+    mode = PCANFD_OPT_HWTIMESTAMP_SOF_COOKED;
+  } else if (flag == "SOF RAW") {
+    mode = PCANFD_OPT_HWTIMESTAMP_SOF_RAW;
   }
+
+  int ret =
+      pcanfd_set_option(fd, PCANFD_OPT_HWTIMESTAMP_MODE, &mode, sizeof(mode));
+  checkError(ret, "Failed to set hardware timestamp mode");
+  std::cout << "Hardware timestamp mode set to " << flag << std::endl;
 }
 
 // Set different linger modes controlling how long the driver waits before
